@@ -27,8 +27,19 @@ def get_metadata(file_id):
 	metadata = r.content
 
 	record = ET.fromstring(metadata).find('record')
-	title = record.find("./datafield[@tag='245']/*[@code='a']").text
-	author = record.find("./datafield[@tag='245']/*[@code='c']").text	
+	fields = record.findall("./datafield")
+	for field in fields:
+		if field.attrib.get('tag') == '245':
+			titleElements = field.getchildren()
+			for item in titleElements:
+				if item.attrib.get('code') == 'a':
+					title = item.text
+				if item.attrib.get('code') == 'c':
+					author = item.text
+
+	## Much simpler code for lines 30-38, can only use in Python 2.7+:
+	# title = record.find("./datafield[@tag='245']/*[@code='a']").text
+	# author = record.find("./datafield[@tag='245']/*[@code='c']").text	
 
 	title = title.rstrip('/ ')
 	author = author.rstrip('. ')
@@ -37,3 +48,6 @@ def get_metadata(file_id):
 	RESULTS['author'] = author
 
 	return RESULTS
+
+if __name__ == '__main__':
+	print get_metadata('001387502')
