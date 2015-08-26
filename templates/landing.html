@@ -182,16 +182,19 @@
       <div class="content-main flex-container">
         <div id="content" class="flex-item">
           <h1>MIT-hosted E-book</h1>
-          <p><strong>Title:</strong> {{ metadata.title }}</p>
-          <p><strong>Author:</strong> {{ metadata.author }}</p>
-          <p><strong>Edition:</strong></p>
-          <p><strong>Extent:</strong></p>
-          <p><strong>Files:</strong></p>
-          <ul id="files">
-            {% for type in file_types %}
-              <li><a href="{{ url_for('static', filename='files/') }}{{ file_id }}.{{ type }}">{{ file_id }}.{{ type }}</a></li>
-            {% endfor %}
-          </ul>
+          {% for m in metadata %}
+            <p><strong>{{ m }}:</strong> {{ metadata[m] }}</p>
+          {% endfor %}
+
+          {% if metadata.Error %}
+          {% else %}
+            <p><strong>Files:</strong></p>
+            <ul id="files">
+              {% for file in files %}
+                <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
       </div>
     
