@@ -56,35 +56,6 @@ def get_metadata(file_id):
 	# try:
 	fields = record.findall("./datafield")
 	for field in fields:
-			title = get_field_value(field, '245', 'a')
-			subtitle = get_field_value(field, '245', 'b')
-			if title:
-				title = title.rstrip('/ ')
-				if subtitle:
-					title += subtitle
-				RESULTS['Title'] = title
-
-			author = get_field_value(field, '100', 'a')
-			if author:
-				author = author.rstrip('. ')
-				RESULTS['Author'] = author
-
-			edition = get_field_value(field, '250', 'a')
-			if edition:
-				RESULTS['Edition'] = edition
-
-			pub_info = get_field_value(field, '260', 'all')
-			if not pub_info:
-				pub_info = get_field_value(field, '264', 'all')
-			if pub_info:
-				RESULTS['Publication'] = pub_info
-
-			series = get_field_value(field, '830', 'a')
-			series_num = get_field_value(field, '830', 'v')
-			if series:
-				if series_num:
-					series += series_num
-				RESULTS['Series'] = series
 
 			isbn = get_field_value(field, '020', 'a')
 			if isbn:
@@ -93,6 +64,36 @@ def get_metadata(file_id):
 			issn = get_field_value(field, '022', 'a')
 			if issn:
 				RESULTS['ISSN'] = issn
+
+			series = get_field_value(field, '830', 'a')
+			series_num = get_field_value(field, '830', 'v')
+			if series:
+				if series_num:
+					series += series_num
+				RESULTS['Series'] = series
+
+			pub_info = get_field_value(field, '260', 'all')
+			if not pub_info:
+				pub_info = get_field_value(field, '264', 'all')
+			if pub_info:
+				RESULTS['Publication'] = pub_info
+
+			edition = get_field_value(field, '250', 'a')
+			if edition:
+				RESULTS['Edition'] = edition
+
+			author = get_field_value(field, '100', 'a')
+			if author:
+				author = author.rstrip('. ')
+				RESULTS['Author'] = author
+
+			title = get_field_value(field, '245', 'a')
+			subtitle = get_field_value(field, '245', 'b')
+			if title:
+				title = title.rstrip('/ ')
+				if subtitle:
+					title += subtitle
+				RESULTS['Title'] = title
 			
 	# except:
 	# 	RESULTS['Error'] = 'Item not found.'
@@ -102,12 +103,13 @@ def get_metadata(file_id):
 def get_field_value(parent, marc_field, subcode):
 	if parent.attrib.get('tag') == marc_field:
 		fieldElements = parent.getchildren()
+		field_value = ''
 		for item in fieldElements:
-			field_value = ''
-			if subcode = 'all':
-				field_value += item.text
-			if item.attrib.get('code') == subcode:
+			if subcode == 'all':
+				field_value += item.text + ' '
+			elif item.attrib.get('code') == subcode:
 				field_value = item.text
-			return field_value
+				return field_value
+		return field_value
 	else:
 		return False
