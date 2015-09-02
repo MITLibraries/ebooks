@@ -2,7 +2,7 @@
 
 import logging, sys
 
-sys.path.insert(0, '/var/www/ebooks')
+sys.path.insert(0, '/var/www/libraries-test.mit.edu/htdocs/secure/ebooks')
 
 logging.basicConfig(stream=sys.stderr)
 
