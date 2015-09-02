@@ -36,30 +36,71 @@ def get_metadata(file_id):
 
 	record = ET.fromstring(metadata).find('record')
 
-	try:
-		title = record.find("./datafield[@tag='245']/*[@code='a']").text
-		title = title.rstrip('/ ')
-		RESULTS['Title'] = title
-	except:
-		RESULTS['Error'] = 'Item not found.'
+	## Searching in Python 2.7
+	# try:
+	# 	title = record.find("./datafield[@tag='245']/*[@code='a']").text
+	# 	title = title.rstrip('/ ')
+	# 	RESULTS['Title'] = title
+	# except:
+	# 	RESULTS['Error'] = 'Item not found.'
 
-	try:
-		author = record.find("./datafield[@tag='245']/*[@code='c']").text
-		author = author.rstrip('. ')
-		RESULTS['Author'] = author
-	except:
-		pass
+	# try:
+	# 	author = record.find("./datafield[@tag='245']/*[@code='c']").text
+	# 	author = author.rstrip('. ')
+	# 	RESULTS['Author'] = author
+	# except:
+	# 	pass
 		
 
-	## Workaround searching for Python 2.6
-		# fields = record.findall("./datafield")
-		# for field in fields:
-		# 	if field.attrib.get('tag') == '245':
-		# 		titleElements = field.getchildren()
-		# 		for item in titleElements:
-		# 			if item.attrib.get('code') == 'a':
-		# 				title = item.text
-		# 			if item.attrib.get('code') == 'c':
-		# 				author = item.text
+	# Workaround searching for Python 2.6
+	# try:
+	fields = record.findall("./datafield")
+	for field in fields:
+			title = get_field_value(field, '245', 'a')
+			subtitle = get_field_value(field, '245', 'b')
+			if title:
+				title = title.rstrip('/ ')
+				if subtitle:
+					title += subtitle
+				RESULTS['Title'] = title
+
+			author = get_field_value(field, '100', 'a')
+			if author:
+				author = author.rstrip('. ')
+				RESULTS['Author'] = author
+
+			edition = get_field_value(field, '250', 'a')
+			if edition:
+				RESULTS['Edition'] = edition
+
+			# pub_info = get_field_value(field, '260',)
+
+			series = get_field_value(field, '830', 'a')
+			series_num = get_field_value(field, '830', 'v')
+			if series:
+				if series_num:
+					series += series_num
+				RESULTS['Series'] = series
+
+			isbn = get_field_value(field, '020', 'a')
+			if isbn:
+				RESULTS['ISBN'] = isbn
+
+			issn = get_field_value(field, '022', 'a')
+			if issn:
+				RESULTS['ISSN'] = issn
+			
+	# except:
+	# 	RESULTS['Error'] = 'Item not found.'
 
 	return RESULTS
+
+def get_field_value(parent, marc_field, subcode):
+	if parent.attrib.get('tag') == marc_field:
+		fieldElements = parent.getchildren()
+		for item in fieldElements:
+			if item.attrib.get('code') == subcode:
+				field_value = item.text
+				return field_value
+	else:
+		return False
