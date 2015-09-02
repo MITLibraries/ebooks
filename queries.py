@@ -73,7 +73,11 @@ def get_metadata(file_id):
 			if edition:
 				RESULTS['Edition'] = edition
 
-			# pub_info = get_field_value(field, '260',)
+			pub_info = get_field_value(field, '260', 'all')
+			if not pub_info:
+				pub_info = get_field_value(field, '264', 'all')
+			if pub_info:
+				RESULTS['Publication'] = pub_info
 
 			series = get_field_value(field, '830', 'a')
 			series_num = get_field_value(field, '830', 'v')
@@ -99,8 +103,11 @@ def get_field_value(parent, marc_field, subcode):
 	if parent.attrib.get('tag') == marc_field:
 		fieldElements = parent.getchildren()
 		for item in fieldElements:
+			field_value = ''
+			if subcode = 'all':
+				field_value += item.text
 			if item.attrib.get('code') == subcode:
 				field_value = item.text
-				return field_value
+			return field_value
 	else:
 		return False
