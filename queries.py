@@ -2,114 +2,127 @@ import os
 import requests
 import xml.etree.ElementTree as ET
 from string import index
+from boto3 import Session
+import settings
+
 
 def get_filenames(file_id):
-	RESULTS = []
+    RESULTS = []
+    files = []
+    session = Session(aws_access_key_id=settings.aws_access_key_id,
+                      aws_secret_access_key=settings.aws_secret_access_key,
+                      region_name=settings.region_name)
+    s3 = session.resource('s3')
 
-	base_path = os.path.dirname(os.path.abspath(__file__))
-	files_path = os.path.join(base_path, 'static/files')
-	files = os.listdir(files_path)
+    print file_id
 
-	for f in files:
-		try:
-			p = f.index('.')
-			item_name = f[:p]
-		except:
-			pass
+    for bucket in s3.buckets.all():
+        for key in bucket.objects.all():
+            files.append(key.key)
 
-		try:
-			i = f.index('_')
-			item_name = f[:i]
-		except:
-			pass
-		
-		if item_name == file_id:
-			RESULTS.append(f)
+    for f in files:
+        try:
+            p = f.index('.')
+            item_name = f[:p]
+        except:
+            pass
 
-	return RESULTS
+        try:
+            i = f.index('_')
+            item_name = f[:i]
+        except:
+            pass
+
+        if item_name == file_id:
+            RESULTS.append(f)
+
+    return RESULTS
 
 def get_metadata(file_id):
-	RESULTS = {}
+    RESULTS = {}
 
-	r = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
-	metadata = r.content
+    r = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
+    metadata = r.content
 
-	record = ET.fromstring(metadata).find('record')
+    record = ET.fromstring(metadata).find('record')
 
-	## Searching in Python 2.7
-	# try:
-	# 	title = record.find("./datafield[@tag='245']/*[@code='a']").text
-	# 	title = title.rstrip('/ ')
-	# 	RESULTS['Title'] = title
-	# except:
-	# 	RESULTS['Error'] = 'Item not found.'
+    ## Searching in Python 2.7
+    # try:
+    #   title = record.find("./datafield[@tag='245']/*[@code='a']").text
+    #   title = title.rstrip('/ ')
+    #   RESULTS['Title'] = title
+    # except:
+    #   RESULTS['Error'] = 'Item not found.'
 
-	# try:
-	# 	author = record.find("./datafield[@tag='245']/*[@code='c']").text
-	# 	author = author.rstrip('. ')
-	# 	RESULTS['Author'] = author
-	# except:
-	# 	pass
-		
+    # try:
+    #   author = record.find("./datafield[@tag='245']/*[@code='c']").text
+    #   author = author.rstrip('. ')
+    #   RESULTS['Author'] = author
+    # except:
+    #   pass
 
-	# Workaround searching for Python 2.6
-	# try:
-	fields = record.findall("./datafield")
-	for field in fields:
 
-			isbn = get_field_value(field, '020', 'a')
-			if isbn:
-				RESULTS['ISBN'] = isbn
+    # Workaround searching for Python 2.6
+    # try:
+    fields = record.findall("./datafield")
+    for field in fields:
 
-			issn = get_field_value(field, '022', 'a')
-			if issn:
-				RESULTS['ISSN'] = issn
+            isbn = get_field_value(field, '020', 'a')
+            if isbn:
+                RESULTS['ISBN'] = isbn
 
-			series = get_field_value(field, '830', 'a')
-			series_num = get_field_value(field, '830', 'v')
-			if series:
-				if series_num:
-					series += series_num
-				RESULTS['Series'] = series
+            issn = get_field_value(field, '022', 'a')
+            if issn:
+                RESULTS['ISSN'] = issn
 
-			pub_info = get_field_value(field, '260', 'all')
-			if not pub_info:
-				pub_info = get_field_value(field, '264', 'all')
-			if pub_info:
-				RESULTS['Publication'] = pub_info
+            series = get_field_value(field, '830', 'a')
+            series_num = get_field_value(field, '830', 'v')
+            if series:
+                if series_num:
+                    series += series_num
+                RESULTS['Series'] = series
 
-			edition = get_field_value(field, '250', 'a')
-			if edition:
-				RESULTS['Edition'] = edition
+            pub_info = get_field_value(field, '260', 'all')
+            if not pub_info:
+                pub_info = get_field_value(field, '264', 'all')
+            if pub_info:
+                RESULTS['Publication'] = pub_info
 
-			author = get_field_value(field, '100', 'a')
-			if author:
-				author = author.rstrip('. ')
-				RESULTS['Author'] = author
+            edition = get_field_value(field, '250', 'a')
+            if edition:
+                RESULTS['Edition'] = edition
 
-			title = get_field_value(field, '245', 'a')
-			subtitle = get_field_value(field, '245', 'b')
-			if title:
-				title = title.rstrip('/ ')
-				if subtitle:
-					title += subtitle
-				RESULTS['Title'] = title
-			
-	# except:
-	# 	RESULTS['Error'] = 'Item not found.'
+            author = get_field_value(field, '100', 'a')
+            if author:
+                author = author.rstrip('. ')
+                RESULTS['Author'] = author
 
-	return RESULTS
+            title = get_field_value(field, '245', 'a')
+            subtitle = get_field_value(field, '245', 'b')
+            if title:
+                title = title.rstrip('/ ')
+                if subtitle:
+                    title += subtitle
+                RESULTS['Title'] = title
+
+    # except:
+    #   RESULTS['Error'] = 'Item not found.'
+
+    return RESULTS
 
 def get_field_value(parent, marc_field, subcode):
-	if parent.attrib.get('tag') == marc_field:
-		fieldElements = parent.getchildren()
-		field_value = ''
-		for item in fieldElements:
-			if subcode == 'all':
-				field_value += item.text + ' '
-			elif item.attrib.get('code') == subcode:
-				field_value = item.text
-				return field_value
-		return field_value
-	else:
-		return False
+    if parent.attrib.get('tag') == marc_field:
+        fieldElements = parent.getchildren()
+        field_value = ''
+        for item in fieldElements:
+            if subcode == 'all':
+                field_value += item.text + ' '
+            elif item.attrib.get('code') == subcode:
+                field_value = item.text
+                return field_value
+        return field_value
+    else:
+        return False
+
+if __name__ == "__main__":
+    print get_filenames('002341336')
