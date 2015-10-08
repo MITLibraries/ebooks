@@ -2,31 +2,41 @@ import os
 import requests
 import xml.etree.ElementTree as ET
 from string import index
+from boto3 import Session
+import settings
+
 
 def get_filenames(file_id):
-	RESULTS = []
+    RESULTS = []
+    files = []
+    session = Session(aws_access_key_id=settings.aws_access_key_id,
+                      aws_secret_access_key=settings.aws_secret_access_key,
+                      region_name=settings.region_name)
+    s3 = session.resource('s3')
 
-	base_path = os.path.dirname(os.path.abspath(__file__))
-	files_path = os.path.join(base_path, 'static/files')
-	files = os.listdir(files_path)
+    print file_id
 
-	for f in files:
-		try:
-			p = f.index('.')
-			item_name = f[:p]
-		except:
-			pass
+    for bucket in s3.buckets.all():
+        for key in bucket.objects.all():
+            files.append(key.key)
 
-		try:
-			i = f.index('_')
-			item_name = f[:i]
-		except:
-			pass
-		
-		if item_name == file_id:
-			RESULTS.append(f)
+    for f in files:
+        try:
+            p = f.index('.')
+            item_name = f[:p]
+        except:
+            pass
 
-	return RESULTS
+        try:
+            i = f.index('_')
+            item_name = f[:i]
+        except:
+            pass
+
+        if item_name == file_id:
+            RESULTS.append(f)
+
+    return RESULTS
 
 def get_metadata(file_id):
 	RESULTS = {}
@@ -101,15 +111,18 @@ def get_metadata(file_id):
 	return RESULTS
 
 def get_field_value(parent, marc_field, subcode):
-	if parent.attrib.get('tag') == marc_field:
-		fieldElements = parent.getchildren()
-		field_value = ''
-		for item in fieldElements:
-			if subcode == 'all':
-				field_value += item.text + ' '
-			elif item.attrib.get('code') == subcode:
-				field_value = item.text
-				return field_value
-		return field_value
-	else:
-		return False
+    if parent.attrib.get('tag') == marc_field:
+        fieldElements = parent.getchildren()
+        field_value = ''
+        for item in fieldElements:
+            if subcode == 'all':
+                field_value += item.text + ' '
+            elif item.attrib.get('code') == subcode:
+                field_value = item.text
+                return field_value
+        return field_value
+    else:
+        return False
+
+if __name__ == "__main__":
+    print get_filenames('002341336')

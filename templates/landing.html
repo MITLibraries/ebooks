@@ -177,7 +177,7 @@
           <span class="bottom">Account</span>
         </a>
       </header>
-      
+
 
       <div class="content-main flex-container">
         <div id="content" class="flex-item">
@@ -191,13 +191,14 @@
             <p><strong>Files:</strong></p>
             <ul id="files">
               {% for file in files %}
-                <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
+                <li><a href="{{ url_for('s3_file', path=file) }}">{{ file }}</a></li>
               {% endfor %}
             </ul>
           {% endif %}
+          <a href="http://www.whatismyreferer.com/">rEferer</a>
         </div>
       </div>
-    
+
 
       <footer class="footer-main flex-container">
         <div class="links-all flex-container">
@@ -289,9 +290,10 @@
         <div class="license">Licensed under the <a href="http://creativecommons.org/licenses/by-nc/2.0/" class="license-cc">Creative Commons Attribution Non-Commercial License</a> unless otherwise noted.
         </div><!-- end footer.footer-info-institure -->
       </footer>
-      
+
 
       <script src="//v2.libanswers.com/load_chat.php?hash=be2c654b63dd43f31c56295ee5d78d88"></script>
+      <script>file = files.sort()</script>
     </div>
   </body>
 </html>
