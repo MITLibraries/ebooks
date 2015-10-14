@@ -39,76 +39,76 @@ def get_filenames(file_id):
     return RESULTS
 
 def get_metadata(file_id):
-	RESULTS = {}
+    RESULTS = {}
 
-	r = requests.get("http://library.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
-	metadata = r.content
+    r = requests.get("http://library.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
+    metadata = r.content
 
-	record = ET.fromstring(metadata).find('record')
+    record = ET.fromstring(metadata).find('record')
 
-	## Searching in Python 2.7
-	# try:
-	# 	title = record.find("./datafield[@tag='245']/*[@code='a']").text
-	# 	title = title.rstrip('/ ')
-	# 	RESULTS['Title'] = title
-	# except:
-	# 	RESULTS['Error'] = 'Item not found.'
+    ## Searching in Python 2.7
+    # try:
+    #   title = record.find("./datafield[@tag='245']/*[@code='a']").text
+    #   title = title.rstrip('/ ')
+    #   RESULTS['Title'] = title
+    # except:
+    #   RESULTS['Error'] = 'Item not found.'
 
-	# try:
-	# 	author = record.find("./datafield[@tag='245']/*[@code='c']").text
-	# 	author = author.rstrip('. ')
-	# 	RESULTS['Author'] = author
-	# except:
-	# 	pass
-		
+    # try:
+    #   author = record.find("./datafield[@tag='245']/*[@code='c']").text
+    #   author = author.rstrip('. ')
+    #   RESULTS['Author'] = author
+    # except:
+    #   pass
 
-	# Workaround searching for Python 2.6
-	# try:
-	fields = record.findall("./datafield")
-	for field in fields:
 
-			isbn = get_field_value(field, '020', 'a')
-			if isbn:
-				RESULTS['ISBN'] = isbn
+    # Workaround searching for Python 2.6
+    # try:
+    fields = record.findall("./datafield")
+    for field in fields:
 
-			issn = get_field_value(field, '022', 'a')
-			if issn:
-				RESULTS['ISSN'] = issn
+            isbn = get_field_value(field, '020', 'a')
+            if isbn:
+                RESULTS['ISBN'] = isbn
 
-			series = get_field_value(field, '830', 'a')
-			series_num = get_field_value(field, '830', 'v')
-			if series:
-				if series_num:
-					series += series_num
-				RESULTS['Series'] = series
+            issn = get_field_value(field, '022', 'a')
+            if issn:
+                RESULTS['ISSN'] = issn
 
-			pub_info = get_field_value(field, '260', 'all')
-			if not pub_info:
-				pub_info = get_field_value(field, '264', 'all')
-			if pub_info:
-				RESULTS['Publication'] = pub_info
+            series = get_field_value(field, '830', 'a')
+            series_num = get_field_value(field, '830', 'v')
+            if series:
+                if series_num:
+                    series += series_num
+                RESULTS['Series'] = series
 
-			edition = get_field_value(field, '250', 'a')
-			if edition:
-				RESULTS['Edition'] = edition
+            pub_info = get_field_value(field, '260', 'all')
+            if not pub_info:
+                pub_info = get_field_value(field, '264', 'all')
+            if pub_info:
+                RESULTS['Publication'] = pub_info
 
-			author = get_field_value(field, '100', 'a')
-			if author:
-				author = author.rstrip('. ')
-				RESULTS['Author'] = author
+            edition = get_field_value(field, '250', 'a')
+            if edition:
+                RESULTS['Edition'] = edition
 
-			title = get_field_value(field, '245', 'a')
-			subtitle = get_field_value(field, '245', 'b')
-			if title:
-				title = title.rstrip('/ ')
-				if subtitle:
-					title += subtitle
-				RESULTS['Title'] = title
-			
-	# except:
-	# 	RESULTS['Error'] = 'Item not found.'
+            author = get_field_value(field, '100', 'a')
+            if author:
+                author = author.rstrip('. ')
+                RESULTS['Author'] = author
 
-	return RESULTS
+            title = get_field_value(field, '245', 'a')
+            subtitle = get_field_value(field, '245', 'b')
+            if title:
+                title = title.rstrip('/ ')
+                if subtitle:
+                    title += subtitle
+                RESULTS['Title'] = title
+
+    # except:
+    #   RESULTS['Error'] = 'Item not found.'
+
+    return RESULTS
 
 def get_field_value(parent, marc_field, subcode):
     if parent.attrib.get('tag') == marc_field:
