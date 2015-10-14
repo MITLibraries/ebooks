@@ -41,7 +41,7 @@ def get_filenames(file_id):
 def get_metadata(file_id):
     RESULTS = {}
 
-    r = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
+    r = requests.get("http://library.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
     metadata = r.content
 
     record = ET.fromstring(metadata).find('record')
