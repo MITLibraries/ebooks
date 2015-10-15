@@ -17,7 +17,7 @@ def index(item="002341336"):
 
 @app.route('/s3/<path:path>')
 def s3_file(path):
-    return redirect('https://s3.amazonaws.com/mit-ebooks/{}'.format(path),
+    return redirect('https://s3.amazonaws.com/mit-ebooks/{0}'.format(path),
                     code=301)
 
 

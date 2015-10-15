@@ -14,8 +14,6 @@ def get_filenames(file_id):
                       region_name=settings.region_name)
     s3 = session.resource('s3')
 
-    print file_id
-
     for bucket in s3.buckets.all():
         for key in bucket.objects.all():
             files.append(key.key)
