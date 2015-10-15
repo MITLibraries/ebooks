@@ -2,6 +2,7 @@ import requests
 import settings
 import xml.etree.ElementTree as ET
 from boto3 import Session
+import botocore
 
 
 def get_filenames(file_id):
@@ -11,10 +12,10 @@ def get_filenames(file_id):
                       aws_secret_access_key=settings.aws_secret_access_key,
                       region_name=settings.region_name)
     s3 = session.resource('s3')
+    bucket = s3.Bucket('mit-ebooks')
 
-    for bucket in s3.buckets.all():
-        for key in bucket.objects.all():
-            files.append(key.key)
+    for key in bucket.objects.all():
+        files.append(key.key)
 
     for f in files:
         try:
@@ -35,6 +36,17 @@ def get_filenames(file_id):
     RESULTS.sort()
 
     return RESULTS
+
+
+def get_url(file_name):
+    RESULTS = []
+    files = []
+    session = botocore.session.get_session()
+    client = session.create_client('s3', aws_access_key_id=settings.aws_access_key_id, aws_secret_access_key=settings.aws_secret_access_key,region_name='us-east-1')
+
+    url = client.generate_presigned_url('get_object', Params = {'Bucket': 'mit-ebooks', 'Key': file_name, }, ExpiresIn = 86400)
+
+    return url
 
 
 def get_metadata(file_id):
@@ -109,4 +121,4 @@ def get_field_value(parent, marc_field, subcode):
         return False
 
 if __name__ == "__main__":
-    print get_filenames('002341336')
+    print get_url('002341336.pdf')

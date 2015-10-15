@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template, redirect
-from queries import get_filenames, get_metadata
+from queries import get_filenames, get_metadata, get_url
 
 app = Flask(__name__)
 
@@ -17,7 +17,8 @@ def index(item="002341336"):
 
 @app.route('/s3/<path:path>')
 def s3_file(path):
-    return redirect('https://s3.amazonaws.com/mit-ebooks/{0}'.format(path),
+    url = get_url(path)
+    return redirect(url,
                     code=301)
 
 
