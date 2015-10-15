@@ -1,9 +1,7 @@
-import os
 import requests
-import xml.etree.ElementTree as ET
-from string import index
-from boto3 import Session
 import settings
+import xml.etree.ElementTree as ET
+from boto3 import Session
 
 
 def get_filenames(file_id):
@@ -34,79 +32,67 @@ def get_filenames(file_id):
         if item_name == file_id:
             RESULTS.append(f)
 
+    RESULTS.sort()
+
     return RESULTS
+
 
 def get_metadata(file_id):
     RESULTS = {}
 
-    r = requests.get("http://library.mit.edu/rest-dlf/record/mit01" + file_id + "?view=full")
-    metadata = r.content
+    try:
+        r = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" +
+                         file_id + "?view=full")
+        metadata = r.content
 
-    record = ET.fromstring(metadata).find('record')
+        record = ET.fromstring(metadata).find('record')
 
-    ## Searching in Python 2.7
-    # try:
-    #   title = record.find("./datafield[@tag='245']/*[@code='a']").text
-    #   title = title.rstrip('/ ')
-    #   RESULTS['Title'] = title
-    # except:
-    #   RESULTS['Error'] = 'Item not found.'
+        fields = record.findall("./datafield")
+        for field in fields:
 
-    # try:
-    #   author = record.find("./datafield[@tag='245']/*[@code='c']").text
-    #   author = author.rstrip('. ')
-    #   RESULTS['Author'] = author
-    # except:
-    #   pass
+                isbn = get_field_value(field, '020', 'a')
+                if isbn:
+                    RESULTS['ISBN'] = isbn
 
+                issn = get_field_value(field, '022', 'a')
+                if issn:
+                    RESULTS['ISSN'] = issn
 
-    # Workaround searching for Python 2.6
-    # try:
-    fields = record.findall("./datafield")
-    for field in fields:
+                series = get_field_value(field, '830', 'a')
+                series_num = get_field_value(field, '830', 'v')
+                if series:
+                    if series_num:
+                        series += series_num
+                    RESULTS['Series'] = series
 
-            isbn = get_field_value(field, '020', 'a')
-            if isbn:
-                RESULTS['ISBN'] = isbn
+                pub_info = get_field_value(field, '260', 'all')
+                if not pub_info:
+                    pub_info = get_field_value(field, '264', 'all')
+                if pub_info:
+                    RESULTS['Publication'] = pub_info
 
-            issn = get_field_value(field, '022', 'a')
-            if issn:
-                RESULTS['ISSN'] = issn
+                edition = get_field_value(field, '250', 'a')
+                if edition:
+                    RESULTS['Edition'] = edition
 
-            series = get_field_value(field, '830', 'a')
-            series_num = get_field_value(field, '830', 'v')
-            if series:
-                if series_num:
-                    series += series_num
-                RESULTS['Series'] = series
+                author = get_field_value(field, '100', 'a')
+                if author:
+                    author = author.rstrip('. ')
+                    RESULTS['Author'] = author
 
-            pub_info = get_field_value(field, '260', 'all')
-            if not pub_info:
-                pub_info = get_field_value(field, '264', 'all')
-            if pub_info:
-                RESULTS['Publication'] = pub_info
+                title = get_field_value(field, '245', 'a')
+                subtitle = get_field_value(field, '245', 'b')
+                if title:
+                    title = title.rstrip('/ ')
+                    if subtitle:
+                        title += subtitle
+                    RESULTS['Title'] = title
 
-            edition = get_field_value(field, '250', 'a')
-            if edition:
-                RESULTS['Edition'] = edition
-
-            author = get_field_value(field, '100', 'a')
-            if author:
-                author = author.rstrip('. ')
-                RESULTS['Author'] = author
-
-            title = get_field_value(field, '245', 'a')
-            subtitle = get_field_value(field, '245', 'b')
-            if title:
-                title = title.rstrip('/ ')
-                if subtitle:
-                    title += subtitle
-                RESULTS['Title'] = title
-
-    # except:
-    #   RESULTS['Error'] = 'Item not found.'
+    except:
+        RESULTS['Error'] = 'Item not found.'
 
     return RESULTS
+
 
 def get_field_value(parent, marc_field, subcode):
     if parent.attrib.get('tag') == marc_field:
