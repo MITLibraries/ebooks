@@ -1,8 +1,8 @@
+import botocore
 import requests
 import settings
 import xml.etree.ElementTree as ET
 from boto3 import Session
-import botocore
 
 
 def get_filenames(file_id):
@@ -38,25 +38,7 @@ def get_filenames(file_id):
     return RESULTS
 
 
-def get_url(file_name):
-    session = botocore.session.get_session()
-    client = session.create_client('s3',
-                                   aws_access_key_id=settings.
-                                   aws_access_key_id,
-                                   aws_secret_access_key=settings.
-                                   aws_secret_access_key,
-                                   region_name='us-east-1')
-
-    url = client.generate_presigned_url('get_object',
-                                        Params={'Bucket': 'mit-ebooks',
-                                                'Key': file_name},
-                                        ExpiresIn=86400)
-
-    return url
-
-
 def get_file(file_name):
-    RESULTS = {}
     session = botocore.session.get_session()
     client = session.create_client('s3',
                                    aws_access_key_id=settings.
