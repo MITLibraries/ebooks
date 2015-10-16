@@ -192,7 +192,7 @@
             <p><strong>Files:</strong></p>
             <ul id="files">
               {% for file in files %}
-                <li><a href="{{ url_for('s3_file', path=file) }}">{{ file }}</a></li>
+                <li><a href="{{ url_for('get_doc', filename=file) }}">{{ file }}</a></li>
               {% endfor %}
             </ul>
           {% endif %}
