@@ -11,8 +11,10 @@ app = Flask(__name__)
 def index(item="002341336"):
     files = get_filenames(item)
     metadata = get_metadata(item)
+    fields = ['Title', 'Author', 'Edition', 'Publication', 'Series', 'ISBN',
+              'ISSN', 'Error']
     return render_template("landing.html", file_id=item, files=files,
-                           metadata=metadata)
+                           metadata=metadata, fields=fields)
 
 
 @app.route('/docs/<filename>')

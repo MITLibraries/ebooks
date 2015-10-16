@@ -65,14 +65,28 @@ def get_metadata(file_id):
 
         fields = record.findall("./datafield")
         for field in fields:
+                title = get_field_value(field, '245', 'a')
+                subtitle = get_field_value(field, '245', 'b')
+                if title:
+                    title = title.rstrip('/ ')
+                    if subtitle:
+                        title += subtitle
+                    RESULTS['Title'] = title
 
-                isbn = get_field_value(field, '020', 'a')
-                if isbn:
-                    RESULTS['ISBN'] = isbn
+                author = get_field_value(field, '100', 'a')
+                if author:
+                    author = author.rstrip('. ')
+                    RESULTS['Author'] = author
 
-                issn = get_field_value(field, '022', 'a')
-                if issn:
-                    RESULTS['ISSN'] = issn
+                edition = get_field_value(field, '250', 'a')
+                if edition:
+                    RESULTS['Edition'] = edition
+
+                pub_info = get_field_value(field, '260', 'all')
+                if not pub_info:
+                    pub_info = get_field_value(field, '264', 'all')
+                if pub_info:
+                    RESULTS['Publication'] = pub_info
 
                 series = get_field_value(field, '830', 'a')
                 series_num = get_field_value(field, '830', 'v')
@@ -81,28 +95,13 @@ def get_metadata(file_id):
                         series += series_num
                     RESULTS['Series'] = series
 
-                pub_info = get_field_value(field, '260', 'all')
-                if not pub_info:
-                    pub_info = get_field_value(field, '264', 'all')
-                if pub_info:
-                    RESULTS['Publication'] = pub_info
+                isbn = get_field_value(field, '020', 'a')
+                if isbn:
+                    RESULTS['ISBN'] = isbn
 
-                edition = get_field_value(field, '250', 'a')
-                if edition:
-                    RESULTS['Edition'] = edition
-
-                author = get_field_value(field, '100', 'a')
-                if author:
-                    author = author.rstrip('. ')
-                    RESULTS['Author'] = author
-
-                title = get_field_value(field, '245', 'a')
-                subtitle = get_field_value(field, '245', 'b')
-                if title:
-                    title = title.rstrip('/ ')
-                    if subtitle:
-                        title += subtitle
-                    RESULTS['Title'] = title
+                issn = get_field_value(field, '022', 'a')
+                if issn:
+                    RESULTS['ISSN'] = issn
 
     except:
         RESULTS['Error'] = 'Item not found.'

@@ -183,8 +183,10 @@
       <div class="content-main flex-container">
         <div id="content" class="flex-item">
           <h1>MIT-hosted E-book</h1>
-          {% for m in metadata %}
-            <p><strong>{{ m }}:</strong> {{ metadata[m] }}</p>
+          {% for f in fields %}
+            {% if metadata[f] %}
+              <p><strong>{{ f }}:</strong> {{ metadata[f] }}</p>
+            {% endif %}
           {% endfor %}
 
           {% if metadata.Error %}
