@@ -70,7 +70,8 @@ def get_metadata(file_id):
                 if title:
                     title = title.rstrip('/ ')
                     if subtitle:
-                        title += subtitle
+                        title += ' ' + subtitle
+                        title = title.rstrip('/ ')
                     RESULTS['Title'] = title
 
                 author = get_field_value(field, '100', 'a')
