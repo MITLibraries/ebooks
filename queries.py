@@ -57,7 +57,7 @@ def get_metadata(file_id):
     RESULTS = {}
 
     try:
-        r = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" +
+        r = requests.get("http://library.mit.edu/rest-dlf/record/mit01" +
                          file_id + "?view=full")
         metadata = r.content
 
