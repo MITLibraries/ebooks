@@ -9,4 +9,4 @@ sys.path.insert(0, '/var/www/libraries-test.mit.edu/htdocs/secure/ebooks')
 
 logging.basicConfig(stream=sys.stderr)
 
-from app import app as application
+from ebooks.app import app as application

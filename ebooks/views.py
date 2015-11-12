@@ -1,9 +1,6 @@
-from flask import Flask
+from ebooks import app
 from flask import abort, render_template, send_file
 from queries import get_file, get_filenames, get_metadata
-
-
-app = Flask(__name__)
 
 
 @app.route("/")
@@ -26,7 +23,3 @@ def file(filename):
         abort(404)
     else:
         return send_file(obj['Body'], mimetype=obj['ContentType'])
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
