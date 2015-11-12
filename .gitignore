@@ -1,5 +1,9 @@
 *.DS_*
 *.pyc
+*.cache/
+*.tox
+*.python*
 
 venv/
 static/files/
+ebooks/settings.py

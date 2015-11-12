@@ -4,9 +4,9 @@
     <title>MIT Libraries E-Book Delivery Service</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href={{ url_for('static', filename='main.css') }} rel="stylesheet" media="screen">
-    <link rel="shortcut icon" href="http://libraries.mit.edu/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="shortcut icon" href="https://libraries.mit.edu/favicon.ico" type="image/vnd.microsoft.icon" />
 
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,600italic,700,700italic">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,600italic,700,700italic">
 
     <!--added by Darcy to confirm w/ Google webmaster tools we own this site-->
     <meta name="google-site-verification" content="82Cv3HFWvcefC_9XauvglcfB4h3o0uuiC3nKWWkL_eE" />
@@ -14,6 +14,7 @@
     <!--meta tag to scale mobile device display-->
     <meta name="viewport" content="width=device-width, maximum-scale=1">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
       jQuery("img[alt='null'], img[alt='Null'], img[alt='NULL']").attr("alt", "");
@@ -177,13 +178,15 @@
           <span class="bottom">Account</span>
         </a>
       </header>
-      
+
 
       <div class="content-main flex-container">
         <div id="content" class="flex-item">
           <h1>MIT-hosted E-book</h1>
-          {% for m in metadata %}
-            <p><strong>{{ m }}:</strong> {{ metadata[m] }}</p>
+          {% for f in fields %}
+            {% if metadata[f] %}
+              <p><strong>{{ f }}:</strong> {{ metadata[f] }}</p>
+            {% endif %}
           {% endfor %}
 
           {% if metadata.Error %}
@@ -191,13 +194,13 @@
             <p><strong>Files:</strong></p>
             <ul id="files">
               {% for file in files %}
-                <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
+                <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
               {% endfor %}
             </ul>
           {% endif %}
         </div>
       </div>
-    
+
 
       <footer class="footer-main flex-container">
         <div class="links-all flex-container">
@@ -289,7 +292,6 @@
         <div class="license">Licensed under the <a href="http://creativecommons.org/licenses/by-nc/2.0/" class="license-cc">Creative Commons Attribution Non-Commercial License</a> unless otherwise noted.
         </div><!-- end footer.footer-info-institure -->
       </footer>
-      
 
       <script src="//v2.libanswers.com/load_chat.php?hash=be2c654b63dd43f31c56295ee5d78d88"></script>
     </div>
