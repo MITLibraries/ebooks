@@ -6,5 +6,4 @@ from flask import Flask
 app = Flask(__name__)
 
 import ebooks.queries
-import ebooks.settings
 import ebooks.views

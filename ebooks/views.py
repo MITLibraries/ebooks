@@ -11,7 +11,7 @@ def index(item="002341336"):
 
     metadata = {}
     try:
-        record = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" +
+        record = requests.get("http://library.mit.edu/rest-dlf/record/mit01" +
                               item + "?view=full")
         marc_xml = record.content
         metadata = get_metadata(marc_xml)
