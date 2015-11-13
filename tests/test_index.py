@@ -13,6 +13,11 @@ def test_load_index_nonexistent_item(testapp):
     assert 'Item not found' in response
 
 
+def test_load_serial_item(testapp):
+    response = testapp.get('/002341337')
+    assert response.status_code == 200
+
+
 def test_get_file_success(testapp):
     response = testapp.get('/docs/002341336.pdf')
     assert response.content_type == 'application/pdf'

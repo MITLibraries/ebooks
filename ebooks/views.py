@@ -1,6 +1,6 @@
 from ebooks import app
 from flask import abort, render_template, send_file
-from queries import get_file, get_filenames, get_metadata
+from queries import get_file, get_filenames, get_metadata, get_volumes
 import requests
 
 
@@ -20,8 +20,15 @@ def index(item="002341336"):
 
     fields = ['Title', 'Author', 'Edition', 'Publication', 'Series', 'ISBN',
               'ISSN', 'Error']
-    return render_template("landing.html", file_id=item, files=files,
-                           metadata=metadata, fields=fields)
+
+    if 'Serial' in metadata:
+        volumes = get_volumes(files)
+        return render_template("serial.html", file_id=item, files=files,
+                               metadata=metadata, fields=fields,
+                               volumes=volumes)
+    else:
+        return render_template("landing.html", file_id=item, files=files,
+                               metadata=metadata, fields=fields)
 
 
 @app.route('/docs/<filename>')

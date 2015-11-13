@@ -56,8 +56,11 @@ def get_metadata(metadata):
     RESULTS = {}
 
     record = ET.fromstring(metadata).find('record')
-    fields = record.findall("./datafield")
+    leader = record.find('./leader').text
+    if leader[7] == 's':
+        RESULTS['Serial'] = True
 
+    fields = record.findall("./datafield")
     for field in fields:
             title = get_field_value(field, '245', 'a')
             subtitle = get_field_value(field, '245', 'b')
@@ -114,3 +117,14 @@ def get_field_value(parent, marc_field, subcode):
         return field_value
     else:
         return False
+
+
+def get_volumes(file_names):
+    volumes = {}
+    for f in file_names:
+        vol = f.split('.', 1)[0][-4:]
+        if vol not in volumes:
+            volumes[vol] = [f]
+        else:
+            volumes[vol].append(f)
+    return volumes
