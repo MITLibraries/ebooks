@@ -23,7 +23,6 @@ def index(item="002341336"):
 
     if 'Serial' in metadata:
         volumes = get_volumes(files)
-        print(volumes)
         return render_template("serial.html", file_id=item, files=files,
                                metadata=metadata, fields=fields,
                                volumes=volumes)
