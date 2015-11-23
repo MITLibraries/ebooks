@@ -6,7 +6,7 @@ This application was built to provide a simple delivery service for ebooks that 
 * The ebooks application was designed to be run on a Libraries apache server configured for Shibboleth, so authentication is assumed to be performed outside the application itself. 
 * All items presented in the application must be catalogued in Barton. Each item's metadata and file(s) are retrieved using its Barton bibliographic record number.
 * All content files associated with the items are stored in Amazon's S3 cloud storage service.
-* Discovery is assumed to take place in Barton, and access is provided via a link to each item's URL, included in the Barton record for the item. Item URLs follow the format http://[server-name].mit.edu/htdocs/secure/ebooks/[Barton-record-number].]
+* Discovery is assumed to take place in Barton, and access is provided via a link to each item's URL, included in the Barton record for the item. Item URLs follow the format http://[server-name].mit.edu/htdocs/secure/ebooks/[Barton-record-number].
 * Access to the Barton API is IP-based, so in order for the application to retrieve item metadata the machine running it must be on the approved IP list.
 * The application was built and tested to function in Python 2.6. 
 
