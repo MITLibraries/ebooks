@@ -196,7 +196,7 @@
               {% for volume in volumes %}
                 <p><em>Volume {{ volume }}</em></p>
                 {% for file in volumes[volume] %}
-                  <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
+                  <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
                 {% endfor %}
               {% endfor %}
             </ul>
