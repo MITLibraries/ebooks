@@ -194,7 +194,7 @@
             <p><strong>Files:</strong></p>
             <ul id="files">
               {% for file in files %}
-                <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
+                <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
               {% endfor %}
             </ul>
           {% endif %}

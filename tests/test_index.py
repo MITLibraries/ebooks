@@ -19,17 +19,12 @@ def test_load_serial_item(testapp):
 
 
 def test_get_file_success(testapp):
-    response = testapp.get('/docs/002341336.pdf')
+    response = testapp.get('/static/files/002341336.pdf')
     assert response.content_type == 'application/pdf'
 
 
-def test_get_bad_file(testapp):
-    response = testapp.get('/docs/0023..41336.pdf', status=404)
-    assert response.status_code == 404
-
-
 def test_get_nonexistent_file(testapp):
-    response = testapp.get('/docs/fake_file.pdf', status=404)
+    response = testapp.get('/static/files/fake_file.pdf', status=404)
     assert response.status_code == 404
 
 

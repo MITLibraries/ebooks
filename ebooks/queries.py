@@ -1,20 +1,14 @@
-import botocore
-import settings
+import os
 import xml.etree.ElementTree as ET
-from boto3 import Session
 
 
 def get_filenames(file_id):
     RESULTS = []
     files = []
-    session = Session(aws_access_key_id=settings.aws_access_key_id,
-                      aws_secret_access_key=settings.aws_secret_access_key,
-                      region_name=settings.region_name)
-    s3 = session.resource('s3')
-    bucket = s3.Bucket('mit-ebooks')
 
-    for key in bucket.objects.all():
-        files.append(key.key)
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    files_path = os.path.join(base_path, 'static/files')
+    files = os.listdir(files_path)
 
     for f in files:
         try:
@@ -35,21 +29,6 @@ def get_filenames(file_id):
     RESULTS.sort()
 
     return RESULTS
-
-
-def get_file(file_name):
-    session = botocore.session.get_session()
-    client = session.create_client('s3',
-                                   aws_access_key_id=settings.
-                                   aws_access_key_id,
-                                   aws_secret_access_key=settings.
-                                   aws_secret_access_key,
-                                   region_name='us-east-1')
-    try:
-        obj = client.get_object(Bucket='mit-ebooks', Key=file_name)
-        return obj
-    except:
-        return 404
 
 
 def get_metadata(metadata):

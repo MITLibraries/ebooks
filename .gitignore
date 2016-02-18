@@ -6,5 +6,6 @@
 *.python*
 
 venv/
-static/files/
+ebooks/static/files/
+static/files
 ebooks/settings.py
