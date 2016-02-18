@@ -19,7 +19,7 @@ def index(item="002341336"):
         metadata['Error'] = 'Item not found.'
 
     fields = ['Title', 'Author', 'Edition', 'Publication', 'Series', 'ISBN',
-              'ISSN', 'Error']
+              'ISSN', 'Original Version', 'Error']
 
     if 'Serial' in metadata:
         volumes = get_volumes(files)
