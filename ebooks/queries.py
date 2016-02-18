@@ -80,6 +80,10 @@ def get_metadata(metadata):
             if issn:
                 RESULTS['ISSN'] = issn
 
+            original_version = get_field_value(field, '534', 'all')
+            if original_version:
+                RESULTS['Original Version'] = original_version
+
     return RESULTS
 
 
