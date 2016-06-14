@@ -66,7 +66,7 @@
                 {% if metadata.Error %}
 
                 {% else %}
-                  <dt>Files</dt>
+                  <dt id="ebook-files">Files</dt>
                   <dd class="ebook-files">
                     <ul>
                       {% for file in files %}
@@ -76,21 +76,19 @@
                   </dd>
                 {% endif %}
 
-                {% for f in fields %}
-                  {% if not f == 'Title' and not f == 'Author' %}
-                    {% if metadata[f] %}
-                      <dt class="ebook-original-title">{{ f }}</dt>
-                      <dd class="ebook-original">{{ metadata[f] }}</dd>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-
-<!--                 <dt class="ebook-pub-title">Digital Publisher</dt>
-                <dd class="ebook-pub">[Cambridge, Massachusetts] : [MIT Institute Archives and Special Collections], [2015].</dd>
-
-                <dt class="ebook-original-title">Original Version</dt>
-                <dd class="ebook-original">Digital reproduction of: Smith, Harriette Knight, 1855- History of the Lowell Instititue. Boston ; New York : Lamson, Wolffe and Company, 1898. x, 125 pages : illustrations ; 20 cm.</dd> -->
-              </dl>
+                <dt class="ebook-supplementary-title">Supplementary information</dt>
+                <dd id="ebook-supplementary" class="ebook-supplementary">
+                  <dl class="ebook-supplementary-list">
+                    {% for f in fields %}
+                      {% if not f == 'Title' and not f == 'Author' %}
+                        {% if metadata[f] %}
+                          <dt>{{ f }}</dt>
+                          <dd class="ebook-original">{{ metadata[f] }}</dd>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </dl>
+                </dd>
 
             </div>
           </main>
@@ -98,12 +96,20 @@
 
           <aside class="content-sup">
 
+            <div class="bit">
+              <h3 class="title">On this page</h3>
+              <ul>
+                <li><a href="#content-main">Title and Author</a></li>
+                <li><a href="#ebook-files">Digital Files</a></li>
+                <li><a href="#ebook-supplementary">Supplementary information</a></li>
+              </ul>
+            </div>
+
             {% block related %}
               <div class="bit">
                 <h3 class="title">Related</h3>
                 <ul>
                   <li><a href="http://library.mit.edu/item/{{ file_id }}">View this item in the catalog</a></li>
-                  <li><a href="">Cite this work</a></li>
                 </ul>
               </div>
             {% endblock %}
