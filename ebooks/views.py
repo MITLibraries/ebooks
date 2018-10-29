@@ -1,6 +1,6 @@
 from ebooks import app
 from flask import render_template
-from queries import get_filenames, get_metadata, get_volumes
+from ebooks.queries import get_filenames, get_metadata, get_volumes
 import requests
 
 
@@ -11,7 +11,9 @@ def index(item="002341336"):
 
     metadata = {}
     try:
-        record = requests.get("http://library.mit.edu/rest-dlf/record/mit01" +
+        # record = requests.get("http://library.mit.edu/rest-dlf/record/mit01" +
+        #                       item + "?view=full")
+        record = requests.get("http://walter.mit.edu/rest-dlf/record/mit01" +
                               item + "?view=full")
         marc_xml = record.content
         metadata = get_metadata(marc_xml)
