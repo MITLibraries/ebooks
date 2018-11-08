@@ -66,12 +66,16 @@
                 {% else %}
                   <dt id="ebook-files">Files</dt>
                   <dd class="ebook-files">
+                    {% if files %}
                     <ul>
                       {% for file in files %}
-                        <li><a href="{{ url_for('static', filename='files/') }}{{ file }}">{{ file }}</a></li>
+                        <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
                       {% endfor %}
                     </ul>
+                    {% else %}
+                    No files available
                   </dd>
+                  {% endif %}
                 {% endif %}
 
                 <dt class="ebook-supplementary-title">Supplementary information</dt>

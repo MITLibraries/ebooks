@@ -1,6 +1,6 @@
 from ebooks import app
-from flask import render_template
-from ebooks.queries import get_filenames, get_metadata, get_volumes
+from flask import abort, render_template, send_file
+from ebooks.queries import get_file, get_filenames, get_metadata, get_volumes
 import requests
 
 
@@ -31,3 +31,14 @@ def index(item="002341336"):
     else:
         return render_template("landing.html", file_id=item, files=files,
                                metadata=metadata, fields=fields)
+
+
+@app.route('/docs/<filename>')
+def file(filename):
+    if '..' in filename or filename.startswith('/'):
+        abort(404)
+    obj = get_file(filename)
+    if obj == 404:
+        abort(404)
+    else:
+        return send_file(obj['Body'], mimetype=obj['ContentType'])

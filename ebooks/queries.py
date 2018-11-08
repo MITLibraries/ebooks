@@ -1,34 +1,35 @@
 import os
 import xml.etree.ElementTree as ET
 
+import botocore
+import boto3
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_REGION_NAME = os.getenv('AWS_REGION_NAME')
+AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
+
+s3 = boto3.resource('s3',
+                    aws_access_key_id=AWS_ACCESS_KEY_ID,
+                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                    region_name=AWS_REGION_NAME)
+
 
 def get_filenames(file_id):
-    RESULTS = []
     files = []
+    bucket = s3.Bucket(AWS_BUCKET_NAME)
+    for obj in bucket.objects.filter(Prefix=file_id):
+        files.append(obj.key)
+    files.sort()
+    return files
 
-    base_path = os.path.dirname(os.path.abspath(__file__))
-    files_path = os.path.join(base_path, 'static/files')
-    files = os.listdir(files_path)
 
-    for f in files:
-        try:
-            p = f.index('.')
-            item_name = f[:p]
-        except:
-            pass
-
-        try:
-            i = f.index('_')
-            item_name = f[:i]
-        except:
-            pass
-
-        if item_name == file_id:
-            RESULTS.append(f)
-
-    RESULTS.sort()
-
-    return RESULTS
+def get_file(file_name):
+    try:
+        obj = s3.Object(AWS_BUCKET_NAME, file_name)
+        return obj.get()
+    except botocore.exceptions.ClientError:
+        return 404
 
 
 def get_metadata(metadata):
@@ -89,7 +90,7 @@ def get_metadata(metadata):
 
 def get_field_value(parent, marc_field, subcode):
     if parent.attrib.get('tag') == marc_field:
-        fieldElements = parent.getchildren()
+        fieldElements = list(parent)
         field_value = ''
         for item in fieldElements:
             if subcode == 'all':

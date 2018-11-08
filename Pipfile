@@ -6,8 +6,13 @@ name = "pypi"
 [packages]
 flask = "*"
 requests = "*"
+"boto3" = "*"
 
 [dev-packages]
+pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+webtest = "*"
 
 [requires]
 python_version = "3.7"
