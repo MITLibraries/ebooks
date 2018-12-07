@@ -8,6 +8,7 @@ flask = "*"
 requests = "*"
 "boto3" = "*"
 gunicorn = "*"
+"python3-saml" = "*"
 
 [dev-packages]
 pytest = "*"
