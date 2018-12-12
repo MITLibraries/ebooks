@@ -21,14 +21,11 @@ with open("saml/settings.json", 'r') as json_file:
     json_settings['sp']['entityId'] = os.getenv('SP_ENTITY_ID')
     json_settings['sp']['assertionConsumerService']['url'] = \
         os.getenv('SP_ACS_URL')
-    json_settings['sp']['singleLogoutService']['url'] = os.getenv('SP_SLS_URL')
     json_settings['sp']['x509cert'] = os.getenv('SP_CERT')
     json_settings['sp']['privateKey'] = os.getenv('SP_KEY')
     json_settings['idp']['entityId'] = os.getenv('IDP_ENTITY_ID')
     json_settings['idp']['singleSignOnService']['url'] = \
         os.getenv('IDP_SSO_URL')
-    json_settings['idp']['singleLogoutService']['url'] = \
-        os.getenv('IDP_SLS_URL')
     json_settings['idp']['x509cert'] = os.getenv('IDP_CERT')
 
 
@@ -48,7 +45,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'samlSessionIndex' not in session:
-            return redirect(url_for('shibboleth', sso=True, next=request.url))
+            return redirect(url_for('saml', sso=True, next=request.url))
         return f(*args, **kwargs)
     return decorated_function
 
@@ -65,8 +62,8 @@ def prepare_flask_request(request):
     }
 
 
-@app.route('/shibboleth/', methods=['GET', 'POST'])
-def shibboleth():
+@app.route('/saml/', methods=['GET', 'POST'])
+def saml():
     req = prepare_flask_request(request)
     auth = init_saml_auth(req)
     errors = []
@@ -77,16 +74,6 @@ def shibboleth():
     if 'sso' in request.args:
         return redirect(auth.login(return_to=next_page))
 
-    elif 'slo' in request.args:
-        name_id = None
-        session_index = None
-        if 'samlNameId' in session:
-            name_id = session['samlNameId']
-        if 'samlSessionIndex' in session:
-            session_index = session['samlSessionIndex']
-        return redirect(auth.logout(name_id=name_id,
-                                    session_index=session_index))
-
     elif 'acs' in request.args:
         auth.process_response()
         errors = auth.get_errors()
@@ -94,26 +81,14 @@ def shibboleth():
             # TODO: return something helpful to the user
             pass
         if len(errors) == 0:
-            session['samlUserdata'] = auth.get_attributes()
             session['samlNameId'] = auth.get_nameid()
             session['samlSessionIndex'] = auth.get_session_index()
             return redirect(request.form['RelayState'])
         else:
             print(errors)
 
-    elif 'sls' in request.args:
-        def dscb(): session.clear()
-        url = auth.process_slo(delete_session_cb=dscb)
-        errors = auth.get_errors()
-        if len(errors) == 0:
-            if url is not None:
-                return redirect(url)
-            else:
-                # TODO: Do something useful here?
-                return redirect('')
 
-
-@app.route('/shibboleth/metadata/')
+@app.route('/saml/metadata/')
 def metadata():
     req = prepare_flask_request(request)
     auth = init_saml_auth(req)
