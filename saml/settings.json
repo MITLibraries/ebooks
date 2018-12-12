@@ -19,7 +19,6 @@
         "x509cert": ""
     },
     "security": {
-      "wantAssertionsEncrypted": true,
-      "wantNameIdEncrypted": true
+      "wantAssertionsEncrypted": true
     }
 }
