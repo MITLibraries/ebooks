@@ -17,5 +17,9 @@
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
         },
         "x509cert": ""
+    },
+    "security": {
+      "wantAssertionsEncrypted": true,
+      "wantNameIdEncrypted": true
     }
 }
