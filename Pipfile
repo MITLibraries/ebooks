@@ -6,15 +6,20 @@ name = "pypi"
 [packages]
 flask = "*"
 requests = "*"
-"boto3" = "*"
+boto3 = "<1.8"
+botocore = "<1.11"
 gunicorn = "*"
-"python3-saml" = "*"
+python3-saml = "*"
+moto = "==1.3.4"
 
 [dev-packages]
 pytest = "*"
 coverage = "*"
 pytest-cov = "*"
 webtest = "*"
+flask-webtest = "*"
+requests-mock = "*"
+moto = "*"
 
 [requires]
 python_version = "3.7"

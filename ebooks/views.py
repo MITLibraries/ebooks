@@ -1,71 +1,22 @@
 from ebooks import app
 from ebooks.queries import get_file, get_filenames, get_metadata, get_volumes
+from ebooks.auth import (is_safe_url, load_saml_settings,
+                         login_required, prepare_flask_request)
 
 from flask import (abort, make_response, redirect, render_template, request,
-                   session, send_file, url_for)
-
-from functools import wraps
-from urllib.parse import urljoin, urlparse
-
+                   session, send_file)
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
-import json
-import os
 import requests
 
 
-json_settings = {}
-with open("saml/settings.json", 'r') as json_file:
-    json_settings = json.load(json_file)
-    json_settings['debug'] = app.config['DEBUG']
-    json_settings['sp']['entityId'] = os.getenv('SP_ENTITY_ID')
-    json_settings['sp']['assertionConsumerService']['url'] = \
-        os.getenv('SP_ACS_URL')
-    json_settings['sp']['x509cert'] = os.getenv('SP_CERT')
-    json_settings['sp']['privateKey'] = os.getenv('SP_KEY')
-    json_settings['idp']['entityId'] = os.getenv('IDP_ENTITY_ID')
-    json_settings['idp']['singleSignOnService']['url'] = \
-        os.getenv('IDP_SSO_URL')
-    json_settings['idp']['x509cert'] = os.getenv('IDP_CERT')
-
-
-def init_saml_auth(req):
-    auth = OneLogin_Saml2_Auth(req, json_settings)
-    return auth
-
-
-def is_safe_url(target):
-    ref_url = urlparse(request.host_url)
-    test_url = urlparse(urljoin(request.host_url, target))
-    return test_url.scheme in ('http', 'https') and \
-        ref_url.netloc == test_url.netloc
-
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'samlSessionIndex' not in session:
-            return redirect(url_for('saml', sso=True, next=request.url))
-        return f(*args, **kwargs)
-    return decorated_function
-
-
-def prepare_flask_request(request):
-    url_data = urlparse(request.url)
-    return {
-        'https': 'on' if request.scheme == 'https' else 'off',
-        'http_host': request.host,
-        'server_port': url_data.port,
-        'script_name': request.path,
-        'get_data': request.args.copy(),
-        'post_data': request.form.copy()
-    }
+saml_settings = load_saml_settings()
 
 
 @app.route('/saml/', methods=['GET', 'POST'])
 def saml():
     req = prepare_flask_request(request)
-    auth = init_saml_auth(req)
+    auth = OneLogin_Saml2_Auth(req, saml_settings)
     errors = []
     next_page = request.args.get('next')
     if not next_page or is_safe_url(next_page) is False:
@@ -92,7 +43,7 @@ def saml():
 @app.route('/saml/metadata/')
 def metadata():
     req = prepare_flask_request(request)
-    auth = init_saml_auth(req)
+    auth = OneLogin_Saml2_Auth(req, saml_settings)
     settings = auth.get_settings()
     metadata = settings.get_sp_metadata()
     errors = settings.validate_metadata(metadata)
@@ -105,10 +56,9 @@ def metadata():
     return resp
 
 
-@app.route("/item/")
 @app.route("/item/<item>")
 @login_required
-def item(item="002341336"):
+def item(item="None"):
     try:
         files = get_filenames(item)
         metadata = {}
