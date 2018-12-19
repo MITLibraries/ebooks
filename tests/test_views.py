@@ -22,7 +22,6 @@ def test_load_serial_item(testapp, client, s3_conn, aleph):
 
 def test_get_file_success(testapp, client, s3_conn):
     response = client.get('/docs/sample_01-a.txt')
-    print(response.data)
     assert response.content_type == 'text/plain; charset=utf-8'
 
 

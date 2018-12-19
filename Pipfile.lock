@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f2d3e80a3eabe7865709a1379a09c075796b921fbd69252e333aa698d951044d"
+            "sha256": "36ca8a8246b3ba52ae1def770a9fa041b928e063de80e7e64b9a39cc4e19c0c4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -185,6 +185,13 @@
             ],
             "index": "pypi",
             "version": "==1.0.2"
+        },
+        "flask-sslify": {
+            "hashes": [
+                "sha256:d33e1d3c09cd95154176aa8a7319418e52129fc482dd56d8a8ad7c24500d543e"
+            ],
+            "index": "pypi",
+            "version": "==0.1.5"
         },
         "future": {
             "hashes": [
@@ -449,10 +456,10 @@
         },
         "responses": {
             "hashes": [
-                "sha256:16ad4a7a914f20792111157adf09c63a8dc37699c57d1ad20dbc281a4f5743fb",
-                "sha256:b9b31d9b1fcf6d48aea044c9fdd3d04199f6d227b0650c15d2566b0135bc1ed7"
+                "sha256:c85882d2dc608ce6b5713a4e1534120f4a0dc6ec79d1366570d2b0c909a50c87",
+                "sha256:ea5a14f9aea173e3b786ff04cf03133c2dabd4103dbaef1028742fd71a6c2ad3"
             ],
-            "version": "==0.10.4"
+            "version": "==0.10.5"
         },
         "s3transfer": {
             "hashes": [
@@ -981,10 +988,10 @@
         },
         "responses": {
             "hashes": [
-                "sha256:16ad4a7a914f20792111157adf09c63a8dc37699c57d1ad20dbc281a4f5743fb",
-                "sha256:b9b31d9b1fcf6d48aea044c9fdd3d04199f6d227b0650c15d2566b0135bc1ed7"
+                "sha256:c85882d2dc608ce6b5713a4e1534120f4a0dc6ec79d1366570d2b0c909a50c87",
+                "sha256:ea5a14f9aea173e3b786ff04cf03133c2dabd4103dbaef1028742fd71a6c2ad3"
             ],
-            "version": "==0.10.4"
+            "version": "==0.10.5"
         },
         "s3transfer": {
             "hashes": [
