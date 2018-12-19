@@ -85,7 +85,8 @@ def saml():
             session['samlSessionIndex'] = auth.get_session_index()
             return redirect(request.form['RelayState'])
         else:
-            print(errors)
+            print('Errors: %s', errors)
+            print('Last error reason: %s', auth.get_last_error_reason())
 
 
 @app.route('/saml/metadata/')
