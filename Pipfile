@@ -11,6 +11,8 @@ botocore = "<1.11"
 gunicorn = "*"
 python3-saml = "*"
 moto = "==1.3.4"
+flask-sslify = "*"
+sentry-sdk = {extras = ["flask"], version = "*"}
 
 [dev-packages]
 pytest = "*"
