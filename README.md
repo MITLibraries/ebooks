@@ -2,12 +2,29 @@
 
 This application was built to provide a simple delivery service for ebooks that are purchased or licensed by the libraries but not hosted by a vendor. The application presents a landing page for each ebook, on which all files associated with that item are displayed for download. "Ebook" in this case is a loose term that could refer to any item presented to the user as a file or collection of files. This application is format-agnostic; files are served to the user to the browser, and will be rendered by the browser when possible (e.g., PDF) or downloaded to be opened in another appropriate application.
 
+## Deployment ##
+* The application is currently deployed on Heroku and auto-deploys to staging from Github master.
+* Environment variables needed for fully-functional deployment include:
+  * ```ALEPH_API_KEY```: API key for the Barton API
+  * ```AWS_ACCESS_KEY_ID```: Access key for AWS S3 bucket access
+  * ```AWS_BUCKET_NAME```: Name of S3 bucket
+  * ```AWS_REGION_NAME```
+  * ```AWS_SECRET_ACCESS_KEY```: Secret key for AWS S3 bucket access
+  * ```IDP_CERT```: Cert for IDP where SAML SP is registered
+  * ```IDP_ENTITY_ID```: Entity ID for IDP where SAML SP is registered
+  * ```IDP_SSO_URL```: Single sign-on URL for IDP where SMAL SP is registered
+  * ```SECRET_KEY```: Application secret key, required by Flask
+  * ```SENTRY_DSN```: Optional, used to log exceptions to Sentry
+  * ```SP_ACS_URL```: ACS URL used by SAML SP (must be registered with IDP)
+  * ```SP_CERT```: Cert for SAML SP (must be registered with IDP)
+  * ```SP_ENTITY_ID```: Entity ID for SAML SP (must be registered with IDP)
+  * ```SP_KEY```: Private key for SAML SP
+
 ## Assumptions, of which there are several ##
-* The ebooks application was designed to be run on a Libraries apache server configured for Shibboleth, so authentication is assumed to be performed outside the application itself. 
+* All items presented in the application require users to be MIT authenticated for access. Authentication is done via touchstone on any attempt to access item landing pages. This application is configured as a SAML SP with MIT's Touchstone service.
 * All items presented in the application must be catalogued in Barton. Each item's metadata and file(s) are retrieved using its Barton bibliographic record number.
-* Discovery is assumed to take place in Barton, and access is provided via a link to each item's URL, included in the Barton record for the item. Item URLs follow the format http://[server-name].mit.edu/secure/ebooks/[Barton-record-number].
-* Access to the Barton API is IP-based, so in order for the application to retrieve item metadata the machine running it must be on the approved IP list.
-* The application was built and tested to run in Python 2.6. 
+* Discovery is assumed to take place in Barton, and access is provided via a link to each item's URL, included in the Barton record for the item. Item URLs follow the format http://lib-ebooks.mit.edu/item/[Barton-record-number].
+* All ebook files delivered by the application are stored in Amazon S3. Instructions for uploading files to our S3 bucket are documented in Cataloging.
 
 ## Serials ##
 
