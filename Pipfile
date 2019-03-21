@@ -23,6 +23,7 @@ webtest = "*"
 flask-webtest = "*"
 requests-mock = "*"
 moto = "*"
+pytest-env = "*"
 
 [requires]
 python_version = "3.7"
