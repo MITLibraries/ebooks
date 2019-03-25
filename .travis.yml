@@ -1,0 +1,16 @@
+notifications:
+  email: false
+dist: xenial
+language: python
+python: 3.7
+before_install:
+  - sudo apt-get install -y libxmlsec1-dev
+  - sudo rm -f /etc/boto.cfg
+  - pip install pipenv coveralls
+install:
+  - pipenv install --dev
+jobs:
+  include:
+    - name: Tests
+      script: pipenv run pytest --cov=ebooks tests/
+      after_success: coveralls
