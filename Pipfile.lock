@@ -413,19 +413,19 @@
         },
         "python3-saml": {
             "hashes": [
-                "sha256:199ef88a296b5eb72cf18a4070c7ee566e15588efbf8d16710225226d725c447",
-                "sha256:75d5d17a75f23ab4e940d1ca557be125e3138749a552d089bccf2cace2ff403d",
-                "sha256:d4f92c0242511315c5260dd43ee6f4920ab16e78e0841f15cbcabb5ec5ff18d3"
+                "sha256:2421804f9a3044656ec4ad5ce6cd21a9feba32a2713798296724263455f01191",
+                "sha256:32083884ac432602bd6998dbcd559b0674ad2c63004c18c105332aab5f05aa1f",
+                "sha256:8c0506b755e6ba2975ffb3dc7fe0dadd5b8d48d7b2613f56455925380638eb31"
             ],
             "index": "pypi",
-            "version": "==1.5.0"
+            "version": "==1.6.0"
         },
         "pytz": {
             "hashes": [
-                "sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9",
-                "sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"
+                "sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda",
+                "sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141"
             ],
-            "version": "==2018.9"
+            "version": "==2019.1"
         },
         "pyyaml": {
             "hashes": [
@@ -967,10 +967,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9",
-                "sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"
+                "sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda",
+                "sha256:d747dd3d23d77ef44c6a3526e274af6efeb0a6f1afd5a69ba4d5be4098c8e141"
             ],
-            "version": "==2018.9"
+            "version": "==2019.1"
         },
         "pyyaml": {
             "hashes": [
