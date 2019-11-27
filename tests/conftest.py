@@ -1,10 +1,12 @@
-import ebooks
+import os
+
 import boto3
 from moto import mock_s3
-import os
 import pytest
 import requests_mock
 from webtest import TestApp
+
+import ebooks
 
 
 @pytest.yield_fixture
@@ -40,6 +42,7 @@ def s3_conn():
                 file. I also live in the bucket.')
         conn.Object('samples', 'has_volumes_a_2009.txt').put(Body='Vol 2009a')
         conn.Object('samples', 'has_volumes_b_2009.txt').put(Body='Vol 2009b')
+        conn.Object('samples', 'sample.mp4').put(Body='fixtures/sample.mp4')
         yield conn
 
 
@@ -65,7 +68,11 @@ def aleph(record, serial):
         m.get('/rest-dlf/record/mit01serial',
               status_code=200, content=serial.encode())
         m.get('/rest-dlf/record/mit01fake_item',
-              status_code=200, content='<?xmlversion = "1.0" encoding = "UTF-8"?><get-record><reply-text>Record does not exist</reply-text><reply-code>0019</reply-code></get-record>'.encode())
+              status_code=200,
+              content=('<?xmlversion = "1.0" encoding = ''"UTF-8"?>'
+                       '<get-record><reply-text>Record does not exist'
+                       '</reply-text><reply-code>0019</reply-code>'
+                       '</get-record>'.encode()))
         yield m
 
 
