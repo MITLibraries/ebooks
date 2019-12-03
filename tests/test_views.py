@@ -10,6 +10,11 @@ def test_item_page_loads_if_authenticated(testapp, client, s3_conn, aleph):
     assert response.status_code == 200
 
 
+def test_item_page_displays_video_correctly(testapp, client, s3_conn, aleph):
+    response = client.get('/item/sample')
+    assert b'<video width="100%" height="auto" controls>' in response.data
+
+
 def test_load_index_nonexistent_item(testapp, client, s3_conn, aleph):
     response = client.get('/item/fake_item')
     assert b'Item not found' in response.data

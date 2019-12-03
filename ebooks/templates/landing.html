@@ -66,16 +66,33 @@
                 {% else %}
                   <dt id="ebook-files">Files</dt>
                   <dd class="ebook-files">
-                    {% if files %}
-                    <ul>
-                      {% for file in files %}
-                        <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
-                      {% endfor %}
-                    </ul>
+                    {% if files|length > 1 %}
+                      <ul>
+                        {% for file in files %}
+                          {% if ".mp4" in file %}
+                            <li><video width="100%" height="auto" controls>
+                              <source src="{{ url_for('file', filename=file) }}" type="video/mp4">
+                              <a href="{{ url_for('file', filename=file) }}">{{ file }}</a>
+                            </video></li>
+                          {% else %}
+                            <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% elif files|length == 1 %}
+                      {% set file = files.0 %}
+                      {% if ".mp4" in file %}
+                        <video width="100%" height="auto" controls>
+                          <source src="{{ url_for('file', filename=file) }}" type="video/mp4">
+                          <a href="{{ url_for('file', filename=file) }}">{{ file }}</a>
+                        </video>
+                      {% else %}
+                        <a href="{{ url_for('file', filename=file) }}">{{ file }}</a>
+                      {% endif %}
                     {% else %}
-                    No files available
+                      No files available
+                    {% endif %}
                   </dd>
-                  {% endif %}
                 {% endif %}
 
                 <dt class="ebook-supplementary-title">Supplementary information</dt>
