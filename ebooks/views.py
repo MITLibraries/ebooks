@@ -1,14 +1,12 @@
-from ebooks import app
-from ebooks.queries import get_file, get_filenames, get_metadata, get_volumes
-from ebooks.auth import (is_safe_url, load_saml_settings,
-                         login_required, prepare_flask_request)
-
-from flask import (abort, make_response, redirect, render_template, request,
-                   session, send_file)
-from onelogin.saml2.auth import OneLogin_Saml2_Auth
-
 import requests
 
+from ebooks import app
+from ebooks.auth import (is_safe_url, load_saml_settings, login_required,
+                         prepare_flask_request)
+from ebooks.queries import get_file, get_filenames, get_metadata, get_volumes
+from flask import (abort, make_response, redirect, render_template, request,
+                   send_file, session)
+from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
 saml_settings = load_saml_settings()
 
