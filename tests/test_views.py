@@ -23,18 +23,3 @@ def test_load_index_nonexistent_item(testapp, client, s3_conn, aleph):
 def test_load_serial_item(testapp, client, s3_conn, aleph):
     response = client.get('/item/serial')
     assert response.status_code == 200
-
-
-def test_get_file_success(testapp, client, s3_conn):
-    response = client.get('/docs/sample_01-a.txt')
-    assert response.content_type == 'text/plain; charset=utf-8'
-
-
-def test_get_bad_file(testapp, client, s3_conn):
-    response = client.get('/docs/0023..41336.pdf')
-    assert response.status_code == 404
-
-
-def test_get_nonexistent_file(testapp, client, s3_conn):
-    response = client.get('/docs/fake_file.pdf')
-    assert response.status_code == 404
