@@ -11,6 +11,7 @@ from webtest import TestApp
 def app():
     import ebooks
     app = ebooks.app
+    app.config['ENV'] = 'testing'
     ctx = app.test_request_context()
     ctx.push()
     yield app

@@ -107,5 +107,4 @@ def get_volumes(files):
             volumes[vol] = [{'name': f['name'], 'url': f['url']}]
         else:
             volumes[vol].append({'name': f['name'], 'url': f['url']})
-    print(volumes)
     return volumes

@@ -34,7 +34,7 @@ def is_safe_url(target):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if (app.config['ENV'] is not 'development' and
+        if (app.config['ENV'] != 'development' and
                 'samlSessionIndex' not in session):
             return redirect(url_for('saml', sso=True, next=request.url))
         return f(*args, **kwargs)
