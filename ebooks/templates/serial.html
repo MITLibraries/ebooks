@@ -70,7 +70,7 @@
                       <h3 class="ebooks-files-title">Volume {{ volume }}</h3>
                       <ul>
                         {% for file in volumes[volume] %}
-                          <li><a href="{{ url_for('file', filename=file) }}">{{ file }}</a></li>
+                          <li><a href="{{ file['url'] }}">{{ file['name'] }}</a></li>
                         {% endfor %}
                       </ul>
                     {% endfor %}

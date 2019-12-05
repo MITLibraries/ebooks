@@ -1,7 +1,6 @@
 import os
 import xml.etree.ElementTree as ET
 
-import botocore
 import boto3
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -9,27 +8,24 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_REGION_NAME = os.getenv('AWS_REGION_NAME')
 AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
 
-s3 = boto3.resource('s3',
-                    aws_access_key_id=AWS_ACCESS_KEY_ID,
-                    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-                    region_name=AWS_REGION_NAME)
+s3 = boto3.client('s3',
+                  aws_access_key_id=AWS_ACCESS_KEY_ID,
+                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                  region_name=AWS_REGION_NAME)
 
 
 def get_filenames(file_id):
-    files = []
-    bucket = s3.Bucket(AWS_BUCKET_NAME)
-    for obj in bucket.objects.filter(Prefix=file_id):
-        files.append(obj.key)
-    files.sort()
-    return files
+    objs = s3.list_objects_v2(Bucket=AWS_BUCKET_NAME, Prefix=file_id)
+    filenames = [o['Key'] for o in objs['Contents']]
+    filenames.sort()
+    return filenames
 
 
-def get_file(file_name):
-    try:
-        obj = s3.Object(AWS_BUCKET_NAME, file_name)
-        return obj.get()
-    except botocore.exceptions.ClientError:
-        return 404
+def get_url(s3_key):
+    url = s3.generate_presigned_url(ClientMethod='get_object',
+                                    Params={'Bucket': AWS_BUCKET_NAME,
+                                            'Key': s3_key})
+    return url
 
 
 def get_metadata(metadata):
@@ -103,12 +99,12 @@ def get_field_value(parent, marc_field, subcode):
         return False
 
 
-def get_volumes(file_names):
+def get_volumes(files):
     volumes = {}
-    for f in file_names:
-        vol = f.split('.', 1)[0][-4:]
+    for f in files:
+        vol = f['name'].split('.', 1)[0][-4:]
         if vol not in volumes:
-            volumes[vol] = [f]
+            volumes[vol] = [{'name': f['name'], 'url': f['url']}]
         else:
-            volumes[vol].append(f)
+            volumes[vol].append({'name': f['name'], 'url': f['url']})
     return volumes

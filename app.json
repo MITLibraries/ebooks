@@ -1,0 +1,13 @@
+{
+  "name": "eBooks",
+  "website": "https://lib-ebooks.mit.edu",
+  "repository": "https://github.com/MITLibraries/ebooks",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

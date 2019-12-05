@@ -1,17 +1,17 @@
 import os
 
 import boto3
-from moto import mock_s3
 import pytest
 import requests_mock
+from moto import mock_s3
 from webtest import TestApp
-
-import ebooks
 
 
 @pytest.yield_fixture
 def app():
+    import ebooks
     app = ebooks.app
+    app.config['ENV'] = 'testing'
     ctx = app.test_request_context()
     ctx.push()
     yield app
@@ -31,18 +31,36 @@ def client(app):
         return client
 
 
-@pytest.fixture
-def s3_conn():
+@pytest.fixture(scope='function')
+def aws_credentials():
+    """Mocked AWS Credentials for moto."""
+    os.environ['AWS_ACCESS_KEY_ID'] = 'testing'
+    os.environ['AWS_SECRET_ACCESS_KEY'] = 'testing'
+    os.environ['AWS_SECURITY_TOKEN'] = 'testing'
+    os.environ['AWS_SESSION_TOKEN'] = 'testing'
+
+
+@pytest.fixture(scope='function')
+def s3_conn(aws_credentials):
     with mock_s3():
-        conn = boto3.resource('s3', region_name='us-1-east')
+        conn = boto3.client('s3', region_name='us-east-1')
         conn.create_bucket(Bucket='samples')
-        conn.Object('samples', 'sample_01-a.txt').put(Body='I am a file. I \
-                live in a bucket.')
-        conn.Object('samples', 'sample_01-b.txt').put(Body='I am a second \
-                file. I also live in the bucket.')
-        conn.Object('samples', 'has_volumes_a_2009.txt').put(Body='Vol 2009a')
-        conn.Object('samples', 'has_volumes_b_2009.txt').put(Body='Vol 2009b')
-        conn.Object('samples', 'sample.mp4').put(Body='fixtures/sample.mp4')
+        conn.put_object(Bucket='samples',
+                        Key='sample_01-a.txt',
+                        Body='I am a file. I live in a bucket.',
+                        ContentType='text/plain')
+        conn.put_object(Bucket='samples',
+                        Key='sample_01-b.txt',
+                        Body='I am a second file. I also live in the bucket.')
+        conn.put_object(Bucket='samples',
+                        Key='has_volumes_a_2009.txt',
+                        Body='Vol 2009a')
+        conn.put_object(Bucket='samples',
+                        Key='has_volumes_b_2009.txt',
+                        Body='Vol 2009b')
+        conn.put_object(Bucket='samples',
+                        Key='sample.mp4',
+                        Body='fixtures/sample.mp4')
         yield conn
 
 

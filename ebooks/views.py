@@ -1,14 +1,12 @@
-from ebooks import app
-from ebooks.queries import get_file, get_filenames, get_metadata, get_volumes
-from ebooks.auth import (is_safe_url, load_saml_settings,
-                         login_required, prepare_flask_request)
-
-from flask import (abort, make_response, redirect, render_template, request,
-                   session, send_file)
-from onelogin.saml2.auth import OneLogin_Saml2_Auth
-
 import requests
 
+from ebooks import app
+from ebooks.auth import (is_safe_url, load_saml_settings, login_required,
+                         prepare_flask_request)
+from ebooks.queries import get_filenames, get_metadata, get_url, get_volumes
+from flask import (abort, make_response, redirect, render_template, request,
+                   send_file, session)
+from onelogin.saml2.auth import OneLogin_Saml2_Auth
 
 saml_settings = load_saml_settings()
 
@@ -59,9 +57,9 @@ def metadata():
 @app.route("/item/<item>")
 @login_required
 def item(item="None"):
+    metadata = {}
+    files = []
     try:
-        files = get_filenames(item)
-        metadata = {}
         record = requests.get("https://library.mit.edu/rest-dlf/record/mit01" +
                               item + "?view=full&key=" +
                               app.config['ALEPH_API_KEY'])
@@ -69,6 +67,12 @@ def item(item="None"):
         metadata = get_metadata(marc_xml)
     except AttributeError:
             metadata['Error'] = 'Item not found.'
+    try:
+        filenames = get_filenames(item)
+        for f in filenames:
+            files.append({'name': f, 'url': get_url(f)})
+    except KeyError:
+        pass
 
     fields = ['Title', 'Author', 'Edition', 'Publication', 'Series', 'ISBN',
               'ISSN', 'Original Version', 'Error']
@@ -83,13 +87,13 @@ def item(item="None"):
                                metadata=metadata, fields=fields)
 
 
-@app.route('/docs/<filename>')
-@login_required
-def file(filename):
-    if '..' in filename or filename.startswith('/'):
-        abort(404)
-    obj = get_file(filename)
-    if obj == 404:
-        abort(404)
-    else:
-        return send_file(obj['Body'], mimetype=obj['ContentType'])
+# @app.route('/docs/<filename>')
+# @login_required
+# def file(filename):
+#     if '..' in filename or filename.startswith('/'):
+#         abort(404)
+#     obj = get_file(filename)
+#     if obj == 404:
+#         abort(404)
+#     else:
+#         return send_file(obj['Body'], mimetype=obj['ContentType'])

@@ -1,11 +1,10 @@
-from ebooks import app
-
 import json
 import os
-
-from flask import redirect, request, session, url_for
 from functools import wraps
 from urllib.parse import urljoin, urlparse
+
+from ebooks import app
+from flask import redirect, request, session, url_for
 
 
 def load_saml_settings():
@@ -35,7 +34,8 @@ def is_safe_url(target):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'samlSessionIndex' not in session:
+        if (app.config['ENV'] != 'development' and
+                'samlSessionIndex' not in session):
             return redirect(url_for('saml', sso=True, next=request.url))
         return f(*args, **kwargs)
     return decorated_function
