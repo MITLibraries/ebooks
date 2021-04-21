@@ -1,30 +1,20 @@
-import os
 import xml.etree.ElementTree as ET
 
-import boto3
 
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_REGION_NAME = os.getenv('AWS_REGION_NAME')
-AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
-
-s3 = boto3.client('s3',
-                  aws_access_key_id=AWS_ACCESS_KEY_ID,
-                  aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-                  region_name=AWS_REGION_NAME)
-
-
-def get_filenames(file_id):
-    objs = s3.list_objects_v2(Bucket=AWS_BUCKET_NAME, Prefix=file_id)
+def get_filenames(s3, bucket, file_id):
+    objs = s3.list_objects_v2(Bucket=bucket,
+                              Prefix=file_id)
     filenames = [o['Key'] for o in objs['Contents']]
     filenames.sort()
     return filenames
 
 
-def get_url(s3_key):
-    url = s3.generate_presigned_url(ClientMethod='get_object',
-                                    Params={'Bucket': AWS_BUCKET_NAME,
-                                            'Key': s3_key})
+def get_url(s3, bucket, s3_key):
+    url = s3.generate_presigned_url(
+        ClientMethod='get_object',
+        Params={'Bucket': bucket,
+                'Key': s3_key}
+        )
     return url
 
 
@@ -38,48 +28,48 @@ def get_metadata(metadata):
 
     fields = record.findall("./datafield")
     for field in fields:
-            title = get_field_value(field, '245', 'a')
-            subtitle = get_field_value(field, '245', 'b')
-            if title:
+        title = get_field_value(field, '245', 'a')
+        subtitle = get_field_value(field, '245', 'b')
+        if title:
+            title = title.rstrip('/ ')
+            if subtitle:
+                title += ' ' + subtitle
                 title = title.rstrip('/ ')
-                if subtitle:
-                    title += ' ' + subtitle
-                    title = title.rstrip('/ ')
-                RESULTS['Title'] = title
+            RESULTS['Title'] = title
 
-            author = get_field_value(field, '100', 'a')
-            if author:
-                author = author.rstrip(',')
-                RESULTS['Author'] = author
+        author = get_field_value(field, '100', 'a')
+        if author:
+            author = author.rstrip(',')
+            RESULTS['Author'] = author
 
-            edition = get_field_value(field, '250', 'a')
-            if edition:
-                RESULTS['Edition'] = edition
+        edition = get_field_value(field, '250', 'a')
+        if edition:
+            RESULTS['Edition'] = edition
 
-            pub_info = get_field_value(field, '260', 'all')
-            if not pub_info:
-                pub_info = get_field_value(field, '264', 'all')
-            if pub_info:
-                RESULTS['Publication'] = pub_info
+        pub_info = get_field_value(field, '260', 'all')
+        if not pub_info:
+            pub_info = get_field_value(field, '264', 'all')
+        if pub_info:
+            RESULTS['Publication'] = pub_info
 
-            series = get_field_value(field, '830', 'a')
-            series_num = get_field_value(field, '830', 'v')
-            if series:
-                if series_num:
-                    series += series_num
-                RESULTS['Series'] = series
+        series = get_field_value(field, '830', 'a')
+        series_num = get_field_value(field, '830', 'v')
+        if series:
+            if series_num:
+                series += series_num
+            RESULTS['Series'] = series
 
-            isbn = get_field_value(field, '020', 'a')
-            if isbn:
-                RESULTS['ISBN'] = isbn
+        isbn = get_field_value(field, '020', 'a')
+        if isbn:
+            RESULTS['ISBN'] = isbn
 
-            issn = get_field_value(field, '022', 'a')
-            if issn:
-                RESULTS['ISSN'] = issn
+        issn = get_field_value(field, '022', 'a')
+        if issn:
+            RESULTS['ISSN'] = issn
 
-            original_version = get_field_value(field, '534', 'all')
-            if original_version:
-                RESULTS['Original Version'] = original_version
+        original_version = get_field_value(field, '534', 'all')
+        if original_version:
+            RESULTS['Original Version'] = original_version
 
     return RESULTS
 
