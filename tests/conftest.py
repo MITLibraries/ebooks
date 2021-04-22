@@ -4,23 +4,15 @@ import boto3
 import pytest
 import requests_mock
 from moto import mock_s3
-from webtest import TestApp
 
-
-@pytest.yield_fixture
-def app():
-    import ebooks
-    app = ebooks.app
-    app.config['ENV'] = 'testing'
-    ctx = app.test_request_context()
-    ctx.push()
-    yield app
-    ctx.pop()
+from ebooks import create_app
 
 
 @pytest.fixture
-def testapp(app):
-    return TestApp(app)
+def app():
+    os.environ['FLASK_ENV'] = 'testing'
+    app = create_app()
+    yield app
 
 
 @pytest.fixture
@@ -31,19 +23,15 @@ def client(app):
         return client
 
 
-@pytest.fixture(scope='function')
-def aws_credentials():
-    """Mocked AWS Credentials for moto."""
-    os.environ['AWS_ACCESS_KEY_ID'] = 'testing'
-    os.environ['AWS_SECRET_ACCESS_KEY'] = 'testing'
-    os.environ['AWS_SECURITY_TOKEN'] = 'testing'
-    os.environ['AWS_SESSION_TOKEN'] = 'testing'
-
-
-@pytest.fixture(scope='function')
-def s3_conn(aws_credentials):
+@pytest.fixture()
+def s3_conn():
     with mock_s3():
-        conn = boto3.client('s3', region_name='us-east-1')
+        conn = boto3.client(
+            's3',
+            aws_access_key_id='testing',
+            aws_secret_access_key='testing',
+            region_name='us-east-1'
+            )
         conn.create_bucket(Bucket='samples')
         conn.put_object(Bucket='samples',
                         Key='sample_01-a.txt',
@@ -78,7 +66,7 @@ def serial():
         return record
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def aleph(record, serial):
     with requests_mock.Mocker() as m:
         m.get('/rest-dlf/record/mit01sample',
