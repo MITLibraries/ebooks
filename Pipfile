@@ -4,19 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-requests = "*"
 boto3 = "*"
 botocore = "*"
+flask = "*"
+flask-sslify = "*"
 gunicorn = "*"
 python3-saml = "*"
-moto = "*"
-flask-sslify = "*"
-sentry-sdk = {extras = ["flask"],version = "*"}
 pyyaml = "*"
+requests = "*"
+sentry-sdk = {extras = ["flask"],version = "*"}
 
 [dev-packages]
-pytest = "*"
 coverage = "*"
 moto = "*"
 pytest = "*"
