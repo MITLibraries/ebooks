@@ -24,6 +24,7 @@ flask-webtest = "*"
 requests-mock = "*"
 moto = "*"
 pytest-env = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.9"
