@@ -20,7 +20,7 @@ def create_app():
     elif flask_env == 'testing':
         app.config.from_object('ebooks.config.TestingConfig')
     else:
-        app.config.from_object('ebooks.config.ProductionConfig')
+        app.config.from_object('ebooks.config.Config')
 
     from ebooks import auth, item
     app.register_blueprint(auth.bp)
