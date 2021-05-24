@@ -20,6 +20,6 @@ jobs:
       - name: Test
         run: pipenv run pytest --cov=ebooks
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: AndreMiras/coveralls-python-action@develop
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
