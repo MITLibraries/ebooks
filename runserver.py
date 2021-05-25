@@ -1,2 +1,4 @@
-from ebooks import app
+from ebooks import create_app
+
+app = create_app()
 app.run(debug=True)

@@ -26,13 +26,14 @@ pipenv run python runserver.py
 ```
 
 If you are being prompted for SAML login locally, be sure to check you are
-running in devlepment mode with `FLASK_ENV=development` in your `.env`.
+running in development mode with `FLASK_ENV=development` in your `.env`.
 
 ## Deployment
 
 - The application is currently deployed on Heroku and auto-deploys to staging from Github master.
 - Environment variables needed for fully-functional deployment include:
   - `ALEPH_API_KEY`: API key for the Barton API
+  - `ALEPH_API_URL`: Base URL for the Barton API
   - `AWS_ACCESS_KEY_ID`: Access key for AWS S3 bucket access
   - `AWS_BUCKET_NAME`: Name of S3 bucket
   - `AWS_REGION_NAME`

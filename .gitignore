@@ -5,8 +5,6 @@
 *.tox
 *.python*
 *.env
+*.pytest_cache
 
 venv/
-ebooks/static/files/
-static/files
-ebooks/settings.py

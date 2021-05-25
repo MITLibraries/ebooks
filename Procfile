@@ -1,1 +1,1 @@
-web: gunicorn ebooks:app
+web: gunicorn "ebooks:create_app()"

@@ -2,7 +2,7 @@ def test_item_page_redirects_if_not_authenticated(app):
     with app.test_client() as client:
         response = client.get('/item/sample-monograph')
         assert response.status_code == 302
-        assert 'next=http%3A%2F%2Flocalhost%2Fitem%2Fsample-monograph' \
+        assert 'next=https%3A%2F%2Flocalhost%2Fitem%2Fsample-monograph' \
             in response.location
 
 

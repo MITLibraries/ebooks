@@ -69,11 +69,11 @@ def serial():
 @pytest.fixture
 def aleph(record, serial):
     with requests_mock.Mocker() as m:
-        m.get('/rest-dlf/record/mit01sample',
+        m.get('https://mock.com/sample?view=full&key=',
               status_code=200, content=record.encode())
-        m.get('/rest-dlf/record/mit01serial',
+        m.get('https://mock.com/serial?view=full&key=',
               status_code=200, content=serial.encode())
-        m.get('/rest-dlf/record/mit01fake_item',
+        m.get('https://mock.com/fake_item?view=full&key=',
               status_code=200,
               content=('<?xmlversion = "1.0" encoding = ''"UTF-8"?>'
                        '<get-record><reply-text>Record does not exist'
