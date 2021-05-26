@@ -9,7 +9,7 @@ def test_get_filenames(app, s3_conn):
 
 def test_get_metadata_from_record(app, record):
     r = get_metadata(record)
-    assert r['Title'] == 'Title Subtitle'
+    assert r['Title'] == 'Fundamentals of soil mechanics.'
 
 
 def test_get_volumes(app):

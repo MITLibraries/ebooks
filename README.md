@@ -32,8 +32,8 @@ running in development mode with `FLASK_ENV=development` in your `.env`.
 
 - The application is currently deployed on Heroku and auto-deploys to staging from Github master.
 - Environment variables needed for fully-functional deployment include:
-  - `ALEPH_API_KEY`: API key for the Barton API
-  - `ALEPH_API_URL`: Base URL for the Barton API
+  - `ALMA_API_KEY`: API key for the Alma API
+  - `ALMA_API_URL`: Base URL for the Alma bib record API
   - `AWS_ACCESS_KEY_ID`: Access key for AWS S3 bucket access
   - `AWS_BUCKET_NAME`: Name of S3 bucket
   - `AWS_REGION_NAME`
@@ -51,8 +51,8 @@ running in development mode with `FLASK_ENV=development` in your `.env`.
 ## Assumptions, of which there are several
 
 - All items presented in the application require users to be MIT authenticated for access. Authentication is done via touchstone on any attempt to access item landing pages. This application is configured as a SAML SP with MIT's Touchstone service.
-- All items presented in the application must be catalogued in Barton. Each item's metadata and file(s) are retrieved using its Barton bibliographic record number.
-- Discovery is assumed to take place in Barton, and access is provided via a link to each item's URL, included in the Barton record for the item. Item URLs follow the format http://lib-ebooks.mit.edu/item/[Barton-record-number].
+- All items presented in the application must be catalogued in Alma. Each item's metadata and file(s) are retrieved using its Alma MMS ID.
+- Discovery is assumed to take place in Primo, and access is provided via a link to each item's URL, included in the Alma/Primo record for the item. Item URLs follow the format http://lib-ebooks.mit.edu/item/<AlmaMMSID>.
 - All ebook files delivered by the application are stored in Amazon S3. Instructions for uploading files to our S3 bucket are documented in Cataloging.
 
 ## Serials
