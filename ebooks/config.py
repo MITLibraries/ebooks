@@ -6,8 +6,9 @@ class Config():
     ENV = os.getenv('FLASK_ENV', default='production')
     SECRET_KEY = os.getenv('SECRET_KEY')
 
-    ALEPH_API_KEY = os.getenv('ALEPH_API_KEY')
-    ALEPH_API_URL = os.getenv('ALEPH_API_URL')
+    ALMA_API_KEY = os.getenv('ALMA_API_KEY')
+    ALMA_API_URL = os.getenv('ALMA_API_URL')
+
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     AWS_BUCKET_NAME = os.getenv('AWS_BUCKET_NAME')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -25,8 +26,9 @@ class TestingConfig(Config):
     SECRET_KEY = 'testing'
     PREFERRED_URL_SCHEME = 'https'
 
-    ALEPH_API_KEY = ''
-    ALEPH_API_URL = "https://mock.com/"
+    ALMA_API_KEY = ''
+    ALMA_API_URL = "https://mock.com/"
+
     AWS_ACCESS_KEY_ID = 'testing'
     AWS_BUCKET_NAME = 'samples'
     AWS_SECRET_ACCESS_KEY = 'testing'

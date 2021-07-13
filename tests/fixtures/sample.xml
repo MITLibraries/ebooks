@@ -1,162 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<get-record>
-    <reply-text>ok</reply-text>
-    <reply-code>0000</reply-code>
-    <record>
-        <info type="Items" href="http://walter.mit.edu/rest-dlf/record/mit01002341336/items"/>
-        <info type="Holdings" href="http://walter.mit.edu/rest-dlf/record/mit01002341336/holdings"/>
-        <info type="Filters" href="http://walter.mit.edu/rest-dlf/record/mit01002341336/filters"/>
-        <leader>     nam  2200385Ii 4500</leader>
-        <controlfield tag="005">20150806072509.0</controlfield>
-        <controlfield tag="006">m     o  d</controlfield>
-        <controlfield tag="007">cr |||</controlfield>
-        <controlfield tag="008">150805r20151972maua    ob   f000 0 eng d</controlfield>
-        <datafield tag="035" ind1=" " ind2=" ">
-            <subfield code="a">(OCoLC)915832153</subfield>
-        </datafield>
-        <datafield tag="020" ind1=" " ind2=" ">
-            <subfield code="a">ISBN</subfield>
-        </datafield>
-        <datafield tag="022" ind1=" " ind2=" ">
-            <subfield code="a">ISSN</subfield>
-        </datafield>
-        <datafield tag="040" ind1=" " ind2=" ">
-            <subfield code="a">MYG</subfield>
-            <subfield code="b">eng</subfield>
-            <subfield code="e">rda</subfield>
-            <subfield code="c">MYG</subfield>
-            <subfield code="d">MYG</subfield>
-        </datafield>
-        <datafield tag="050" ind1="1" ind2="4">
-            <subfield code="a">TA710</subfield>
-            <subfield code="b">.F56 1972a</subfield>
-        </datafield>
-        <datafield tag="100" ind1="1" ind2=" ">
-            <subfield code="a">Florin, V. A.</subfield>
-            <subfield code="q">(Viktor Anatolʹevich),</subfield>
-            <subfield code="e">author.</subfield>
-        </datafield>
-        <datafield tag="240" ind1="1" ind2="0">
-            <subfield code="a">Osnovy mekhaniki gruntov.</subfield>
-            <subfield code="l">English</subfield>
-        </datafield>
-        <datafield tag="245" ind1="1" ind2="0">
-            <subfield code="a">Title/</subfield>
-            <subfield code="b">Subtitle/</subfield>
-            <subfield code="n">Volume 1,</subfield>
-            <subfield code="p">General relationships and state of stress caused by foundation loads / by V.A. Florin ; translation edited by Robert L. Schiffman.</subfield>
-        </datafield>
-        <datafield tag="246" ind1="3" ind2=" ">
-            <subfield code="a">General relationships and state of stress caused by foundation loads</subfield>
-        </datafield>
-        <datafield tag="250" ind1="3" ind2=" ">
-            <subfield code="a">Edition 1</subfield>
-        </datafield>
-        <datafield tag="264" ind1=" " ind2="1">
-            <subfield code="a">[Cambridge, Massachusetts] :</subfield>
-            <subfield code="b">[MIT Libraries Curation and Preservation Services],</subfield>
-            <subfield code="c">[2015]</subfield>
-        </datafield>
-        <datafield tag="300" ind1=" " ind2=" ">
-            <subfield code="a">1 online resource :</subfield>
-            <subfield code="b">illustrations</subfield>
-        </datafield>
-        <datafield tag="336" ind1=" " ind2=" ">
-            <subfield code="a">text</subfield>
-            <subfield code="b">txt</subfield>
-            <subfield code="2">rdacontent</subfield>
-        </datafield>
-        <datafield tag="337" ind1=" " ind2=" ">
-            <subfield code="a">computer</subfield>
-            <subfield code="b">c</subfield>
-            <subfield code="2">rdamedia</subfield>
-        </datafield>
-        <datafield tag="338" ind1=" " ind2=" ">
-            <subfield code="a">online resource</subfield>
-            <subfield code="b">cr</subfield>
-            <subfield code="2">rdacarrier</subfield>
-        </datafield>
-        <datafield tag="500" ind1=" " ind2=" ">
-            <subfield code="a">"Translated from Russian."</subfield>
-        </datafield>
-        <datafield tag="534" ind1=" " ind2=" ">
-            <subfield code="p">Digital reproduction of:</subfield>
-            <subfield code="a">Florin, V. A. (Viktor Anatolʹevich).</subfield>
-            <subfield code="t">Fundamentals of soil mechanics. Volume 1, General relationships and state of stress caused by foundation loads.</subfield>
-            <subfield code="c">Springfield, VA :</subfield>
-            <subfield code="b">National Tehcnical Information Service, 1972.</subfield>
-        </datafield>
-        <datafield tag="500" ind1=" " ind2=" ">
-            <subfield code="a">"PB-268 833-T."</subfield>
-        </datafield>
-        <datafield tag="504" ind1=" " ind2=" ">
-            <subfield code="a">Includes bibliographical references (pages R1-R11).</subfield>
-        </datafield>
-        <datafield tag="588" ind1=" " ind2=" ">
-            <subfield code="a">Title from PDF title page.</subfield>
-        </datafield>
-        <datafield tag="650" ind1=" " ind2="0">
-            <subfield code="a">Soil mechanics.</subfield>
-        </datafield>
-        <datafield tag="650" ind1=" " ind2="0">
-            <subfield code="a">Foundations.</subfield>
-        </datafield>
-        <datafield tag="700" ind1="1" ind2=" ">
-            <subfield code="a">Schiffman, Robert L.,</subfield>
-            <subfield code="e">translator,</subfield>
-            <subfield code="e">editor.</subfield>
-        </datafield>
-        <datafield tag="830" ind1="1" ind2=" ">
-            <subfield code="a">Series title</subfield>
-            <subfield code="v">Series numbering</subfield>
-        </datafield>
-        <datafield tag="856" ind1="4" ind2="0">
-            <subfield code="u">http://dome.mit.edu/handle/1721.3/148790</subfield>
-        </datafield>
-        <datafield tag="049" ind1=" " ind2=" ">
-            <subfield code="a">MYGG</subfield>
-        </datafield>
-        <datafield tag="910" ind1=" " ind2=" ">
-            <subfield code="a">ba150805</subfield>
-            <subfield code="b">new</subfield>
-            <subfield code="c">~</subfield>
-            <subfield code="e">misc</subfield>
-            <subfield code="j">a</subfield>
-            <subfield code="k">m</subfield>
-            <subfield code="l">o</subfield>
-            <subfield code="m">I</subfield>
-            <subfield code="o">rda</subfield>
-            <subfield code="p">MYG</subfield>
-            <subfield code="q">n</subfield>
-            <subfield code="r">i</subfield>
-            <subfield code="s">1</subfield>
-            <subfield code="w">~</subfield>
-            <subfield code="x">0</subfield>
-            <subfield code="y">~</subfield>
-            <subfield code="z">~</subfield>
-            <subfield code="i">ba</subfield>
-            <subfield code="d">150805</subfield>
-            <subfield code="n">n</subfield>
-        </datafield>
-        <datafield tag="949" ind1=" " ind2="1">
-            <subfield code="1">Internet Access</subfield>
-            <subfield code="a">n</subfield>
-            <subfield code="b">NET</subfield>
-            <subfield code="h">**See URL(s)</subfield>
-            <subfield code="o">8</subfield>
-            <subfield code="x">02</subfield>
-        </datafield>
-        <datafield tag="994" ind1=" " ind2=" ">
-            <subfield code="a">02</subfield>
-            <subfield code="b">MYG</subfield>
-        </datafield>
-        <controlfield tag="008">1508062u    8   4001uueng0000000</controlfield>
-        <controlfield tag="004">002341336</controlfield>
-        <datafield tag="852" ind1="8" ind2=" ">
-            <subfield code="b">NET</subfield>
-            <subfield code="z">Internet Access</subfield>
-            <subfield code="h">**See URL(s)</subfield>
-        </datafield>
-        <controlfield tag="001">002341336</controlfield>
-    </record>
-</get-record>
+<bib>
+  <mms_id>990023413360106761</mms_id>
+  <record_format>marc21</record_format>
+  <linked_record_id/>
+  <title>Fundamentals of soil mechanics.</title>
+  <author>Florin, V. A.</author>
+  <network_numbers>
+    <network_number>(OCoLC)915832153</network_number>
+    <network_number>(MCM)002341336MIT01</network_number>
+  </network_numbers>
+  <place_of_publication>[Cambridge, Massachusetts] :</place_of_publication>
+  <date_of_publication>[2015]</date_of_publication>
+  <publisher_const>[MIT Libraries Curation and Preservation Services],</publisher_const>
+  <holdings link="https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/990023413360106761/holdings"/>
+  <created_by>import</created_by>
+  <created_date>2021-06-30Z</created_date>
+  <suppress_from_publishing>false</suppress_from_publishing>
+  <suppress_from_external_search>false</suppress_from_external_search>
+  <sync_with_oclc>BIBS</sync_with_oclc>
+  <sync_with_libraries_australia>NONE</sync_with_libraries_australia>
+  <originating_system>ILS</originating_system>
+  <originating_system_id>002341336-MIT01</originating_system_id>
+  <cataloging_level desc="Default Level">00</cataloging_level>
+  <record schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+    <leader>     cam  2200397Ii 4500</leader>
+    <controlfield tag="001">990023413360106761</controlfield>
+    <datafield ind1=" " ind2=" " tag="035">
+      <subfield code="a">(MCM)002341336MIT01</subfield>
+    </datafield>
+    <controlfield tag="005">20160220072504.0</controlfield>
+    <controlfield tag="006">m     o  d        </controlfield>
+    <controlfield tag="007">cr |||||||||||</controlfield>
+    <controlfield tag="008">150805r20151972maua    ob   f000 0 eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="035">
+      <subfield code="a">(OCoLC)915832153</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="a">MYG</subfield>
+      <subfield code="b">eng</subfield>
+      <subfield code="e">rda</subfield>
+      <subfield code="c">MYG</subfield>
+      <subfield code="d">OCLCF</subfield>
+      <subfield code="d">MYG</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="4" tag="050">
+      <subfield code="a">TA710</subfield>
+      <subfield code="b">.F56 1972a</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Florin, V. A.</subfield>
+      <subfield code="q">(Viktor Anatolʹevich),</subfield>
+      <subfield code="e">author.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="240">
+      <subfield code="a">Osnovy mekhaniki gruntov.</subfield>
+      <subfield code="k">Tom 1.</subfield>
+      <subfield code="l">English</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Fundamentals of soil mechanics.</subfield>
+      <subfield code="n">Volume 1,</subfield>
+      <subfield code="p">General relationships and state of stress caused by foundation loads / by V.A. Florin ; translation edited by Robert L. Schiffman.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="246">
+      <subfield code="a">General relationships and state of stress caused by foundation loads</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="1" tag="264">
+      <subfield code="a">[Cambridge, Massachusetts] :</subfield>
+      <subfield code="b">[MIT Libraries Curation and Preservation Services],</subfield>
+      <subfield code="c">[2015]</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1 online resource :</subfield>
+      <subfield code="b">illustrations</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="336">
+      <subfield code="a">text</subfield>
+      <subfield code="b">txt</subfield>
+      <subfield code="2">rdacontent</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="337">
+      <subfield code="a">computer</subfield>
+      <subfield code="b">c</subfield>
+      <subfield code="2">rdamedia</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="338">
+      <subfield code="a">online resource</subfield>
+      <subfield code="b">cr</subfield>
+      <subfield code="2">rdacarrier</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">"Translated from Russian."</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="534">
+      <subfield code="p">Digital reproduction of:</subfield>
+      <subfield code="a">Florin, V. A. (Viktor Anatolʹevich).</subfield>
+      <subfield code="t">Fundamentals of soil mechanics. Volume 1, General relationships and state of stress caused by foundation loads.</subfield>
+      <subfield code="c">Springfield, VA :</subfield>
+      <subfield code="b">National Tehcnical Information Service, 1972.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">"PB-268 833-T."</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="504">
+      <subfield code="a">Includes bibliographical references (pages R1-R11).</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="588">
+      <subfield code="a">Title from PDF title page.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Soil mechanics.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Foundations.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="700">
+      <subfield code="a">Schiffman, Robert L.,</subfield>
+      <subfield code="e">translator,</subfield>
+      <subfield code="e">editor.</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="0" tag="856">
+      <subfield code="u">https://lib-ebooks.mit.edu/item/002341336</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="049">
+      <subfield code="a">MYGG</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="910">
+      <subfield code="a">ba160219</subfield>
+      <subfield code="b">mod</subfield>
+      <subfield code="c">~</subfield>
+      <subfield code="e">recat</subfield>
+      <subfield code="j">a</subfield>
+      <subfield code="k">m</subfield>
+      <subfield code="l">o</subfield>
+      <subfield code="m">I</subfield>
+      <subfield code="o">rda</subfield>
+      <subfield code="p">MYG</subfield>
+      <subfield code="q">n</subfield>
+      <subfield code="r">i</subfield>
+      <subfield code="s">1</subfield>
+      <subfield code="w">~</subfield>
+      <subfield code="x">0</subfield>
+      <subfield code="y">~</subfield>
+      <subfield code="z">~</subfield>
+      <subfield code="i">ba</subfield>
+      <subfield code="d">160219</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="946">
+      <subfield code="m">mit-hosted</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="994">
+      <subfield code="a">C0</subfield>
+      <subfield code="b">MYG</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="910">
+      <subfield code="a">ba150805</subfield>
+      <subfield code="b">new</subfield>
+      <subfield code="c">~</subfield>
+      <subfield code="e">misc</subfield>
+      <subfield code="j">a</subfield>
+      <subfield code="k">m</subfield>
+      <subfield code="l">o</subfield>
+      <subfield code="m">I</subfield>
+      <subfield code="o">rda</subfield>
+      <subfield code="p">MYG</subfield>
+      <subfield code="q">n</subfield>
+      <subfield code="r">i</subfield>
+      <subfield code="s">1</subfield>
+      <subfield code="w">~</subfield>
+      <subfield code="x">0</subfield>
+      <subfield code="y">~</subfield>
+      <subfield code="z">~</subfield>
+      <subfield code="i">ba</subfield>
+      <subfield code="d">150805</subfield>
+    </datafield>
+  </record>
+</bib>

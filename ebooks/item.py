@@ -21,9 +21,9 @@ def item(item="None"):
     bucket = current_app.config['AWS_BUCKET_NAME']
 
     try:
-        base_aleph_url = current_app.config['ALEPH_API_URL']
-        url = (base_aleph_url + item + "?view=full&key=" +
-               current_app.config['ALEPH_API_KEY'])
+        base_alma_url = current_app.config['ALMA_API_URL']
+        url = (base_alma_url + item + "?apikey=" +
+               current_app.config['ALMA_API_KEY'])
         record = requests.get(url)
         marc_xml = record.content
         metadata = get_metadata(marc_xml)
