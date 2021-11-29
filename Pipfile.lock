@@ -347,6 +347,14 @@
             "index": "pypi",
             "version": "==1.5.0"
         },
+        "setuptools": {
+            "hashes": [
+                "sha256:b4c634615a0cf5b02cf83c7bedffc8da0ca439f00e79452699454da6fbd4153d",
+                "sha256:feb5ff19b354cde9efd2344ef6d5e79880ce4be643037641b49508bbb850d060"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==59.4.0"
+        },
         "six": {
             "hashes": [
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
@@ -486,7 +494,7 @@
         },
         "coverage": {
             "extras": [
-                "toml"
+
             ],
             "hashes": [
                 "sha256:01774a2c2c729619760320270e42cd9e797427ecfddd32c2a7b639cdc481f3c0",
@@ -675,11 +683,11 @@
         },
         "moto": {
             "hashes": [
-                "sha256:9dd772426c56083a43c7d9c543183b644d70039df32e907d05bc7d7189a4dde1",
-                "sha256:fef15c831b1356b22beeb4f1b4694945597485bdc111039f1b304ab091141444"
+                "sha256:221ebd16b41b3ae157554ca5e540a8c1b4b1c93443cbf854c1f04751194c51b6",
+                "sha256:73aa14a650cb3bf02ca720b343618a57dda4c2c1d1166708a4c5c98ea9013b29"
             ],
             "index": "pypi",
-            "version": "==2.2.16"
+            "version": "==2.2.17"
         },
         "packaging": {
             "hashes": [
