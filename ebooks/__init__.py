@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from flask_sslify import SSLify
+from flask_talisman import Talisman
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -26,6 +26,6 @@ def create_app():
     app.register_blueprint(auth.bp)
     app.register_blueprint(item.bp)
 
-    SSLify(app, permanent=True)
+    Talisman(app)
 
     return app

@@ -7,12 +7,12 @@ name = "pypi"
 boto3 = "*"
 botocore = "*"
 flask = "*"
-flask-sslify = "*"
 gunicorn = "*"
 python3-saml = "*"
 pyyaml = "*"
 requests = "*"
 sentry-sdk = {extras = ["flask"],version = "*"}
+flask-talisman = "*"
 
 [dev-packages]
 coverage = "*"
