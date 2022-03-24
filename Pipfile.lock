@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9013aacb7d89a61b1e4d4667a99a3662114307a68e91a9dfc2a8053bffd29029"
+            "sha256": "f251616170943e2cd2ad8febda2dc9ab47f91829296f9620023084be2dad02cc"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -69,12 +69,13 @@
             "index": "pypi",
             "version": "==2.0.3"
         },
-        "flask-sslify": {
+        "flask-talisman": {
             "hashes": [
-                "sha256:d33e1d3c09cd95154176aa8a7319418e52129fc482dd56d8a8ad7c24500d543e"
+                "sha256:205d3de7c5ecfad667c84123f5fbe580b1f68cd9a1b058d7353cc0348e15b1bf",
+                "sha256:be2767b6b2bc11b36bf9a0e09ffa10622fbe0d971fd7057a843f82cd795a854b"
             ],
             "index": "pypi",
-            "version": "==0.1.5"
+            "version": "==1.0.0"
         },
         "gunicorn": {
             "hashes": [
@@ -109,11 +110,11 @@
         },
         "jinja2": {
             "hashes": [
-                "sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8",
-                "sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"
+                "sha256:a2f09a92f358b96b5f6ca6ecb4502669c4acb55d8733bbb2b2c9c4af5564c605",
+                "sha256:da424924c069a4013730d8dd010cbecac7e7bb752be388db3741688bffb48dc6"
             ],
-            "markers": "python_version >= '3.6'",
-            "version": "==3.0.3"
+            "markers": "python_version >= '3.7'",
+            "version": "==3.1.0"
         },
         "jmespath": {
             "hashes": [
@@ -548,11 +549,11 @@
         },
         "jinja2": {
             "hashes": [
-                "sha256:077ce6014f7b40d03b47d1f1ca4b0fc8328a692bd284016f806ed0eaca390ad8",
-                "sha256:611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"
+                "sha256:a2f09a92f358b96b5f6ca6ecb4502669c4acb55d8733bbb2b2c9c4af5564c605",
+                "sha256:da424924c069a4013730d8dd010cbecac7e7bb752be388db3741688bffb48dc6"
             ],
-            "markers": "python_version >= '3.6'",
-            "version": "==3.0.3"
+            "markers": "python_version >= '3.7'",
+            "version": "==3.1.0"
         },
         "jmespath": {
             "hashes": [
