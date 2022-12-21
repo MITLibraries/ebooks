@@ -1,6 +1,6 @@
 {
     "strict": true,
-    "debug": "",
+    "debug": true,
     "sp": {
         "entityId": "",
         "assertionConsumerService": {
