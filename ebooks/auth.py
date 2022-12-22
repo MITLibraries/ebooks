@@ -20,7 +20,6 @@ def load_saml_settings():
     json_settings = {}
     with open("saml/settings.json", 'r') as json_file:
         json_settings = json.load(json_file)
-        json_settings['debug'] = current_app.config['DEBUG']
         json_settings['sp']['entityId'] = os.getenv('SP_ENTITY_ID')
         json_settings['sp']['assertionConsumerService']['url'] = \
             os.getenv('SP_ACS_URL')

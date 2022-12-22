@@ -1,4 +1,5 @@
 import boto3
+from botocore.client import Config
 from flask import Blueprint, current_app, render_template
 import requests
 
@@ -16,7 +17,8 @@ def item(item="None"):
         's3',
         aws_access_key_id=current_app.config['AWS_ACCESS_KEY_ID'],
         aws_secret_access_key=current_app.config['AWS_SECRET_ACCESS_KEY'],
-        region_name=current_app.config['AWS_REGION_NAME']
+        region_name=current_app.config['AWS_REGION_NAME'],
+        config=Config(signature_version='s3v4')
         )
     bucket = current_app.config['AWS_BUCKET_NAME']
 
