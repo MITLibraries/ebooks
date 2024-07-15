@@ -16,7 +16,6 @@ ul {
 	margin: 0 0 1em;
 }
 img {
-	max-width: 100%;
 	vertical-align: middle;
 }
 a {
@@ -189,6 +188,16 @@ hr {
 	border: none;
 	border-top: 1px solid #767676;
 }
+
+.platform-name {
+    border-left: 1px solid white;
+    color: white;
+    font-weight: normal;
+    font-size: 28px;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
 .wrap-outer-header.reasons {
 	background: #f23074;
 	background: linear-gradient(
@@ -511,6 +520,7 @@ hr {
 		display: block;
 	}
 	.wrap-footer .identity {
+		align-items: flex-end;
 		display: -ms-flexbox;
 		display: flex;
 		-ms-flex-wrap: wrap;
@@ -560,7 +570,8 @@ hr {
 	}
 }
 .wrap-footer.footer-slim {
-	padding: 1.5rem 4%;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 .wrap-footer.footer-slim .wrap-middle {
 	-ms-flex-order: 2;
@@ -1168,7 +1179,10 @@ form .error .tip {
 	color: #fff;
 }
 .wrap-header {
-	background: #000 url(/static/vi-shape7-tp.svg) no-repeat 0 65%;
+	background: #000 url('https://cdn.mitlibrary.net/files/branding/local/vi-shape7-tp.svg') no-repeat 0 65%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+
 }
 .wrap-header .logo-mit-lib {
 	display: inline-block;
@@ -1219,7 +1233,10 @@ form .error .tip {
 	font-size: 1.2rem;
 }
 .wrap-footer {
-	background: #000 url(/static/vi-shape7-tp.svg) no-repeat 10%;
+	background: #000 url('https://cdn.mitlibrary.net/files/branding/local/vi-shape7-tp.svg') no-repeat 10%;
+	padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 .wrap-footer a {
 	color: #fff;
@@ -1283,8 +1300,8 @@ form .error .tip {
 	display: flex;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
-	-ms-flex-align: baseline;
-	align-items: baseline;
+	-ms-flex-align: start;
+	align-items: start;
 }
 .wrap-outer-footer-institute a,
 .wrap-outer-footer-institute a:active,
@@ -1305,8 +1322,7 @@ form .error .tip {
 	white-space: nowrap;
 }
 .wrap-outer-footer-institute .license {
-	margin-left: auto;
-	margin-top: 1rem;
+	margin-left: 2em;
 	color: #dedede;
 }
 abbr.required {
