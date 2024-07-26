@@ -9,7 +9,7 @@ botocore = "*"
 flask = "*"
 flask-talisman = "*"
 gunicorn = "*"
-python3-saml = {editable = true, git = "https://github.com/hakbailey/python3-saml.git"}
+python3-saml = "*" 
 pyyaml = "*"
 requests = "*"
 sentry-sdk = {extras = ["flask"],version = "*"}
