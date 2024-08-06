@@ -63,3 +63,7 @@ def item(item="None"):
         return render_template(
             "landing.html", file_id=item, files=files, metadata=metadata, fields=fields
         )
+
+@bp.route("/debug")
+def debug(): 
+    return render_template("base.html")
