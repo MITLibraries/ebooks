@@ -196,6 +196,7 @@ hr {
     font-size: 28px;
     margin-left: 20px;
     padding-left: 20px;
+	vertical-align: middle;
 }
 
 .wrap-outer-header.reasons {
