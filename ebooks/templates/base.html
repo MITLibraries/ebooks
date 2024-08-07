@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MIT Libraries E-Book Delivery Service</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic&subset=latin,latin-ext" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link href={{ url_for('static', filename='libraries-main.min.css') }} rel="stylesheet" media="screen">
+
+        <link rel="shortcut icon", href="https://cdn.libraries.mit.edu/files/branding/favicons/favicon.ico"></link>
+
+        <!--added by Darcy to confirm w/ Google webmaster tools we own this site-->
+        <meta name="google-site-verification" content="82Cv3HFWvcefC_9XauvglcfB4h3o0uuiC3nKWWkL_eE" />
+
+        <script type='text/javascript' src='https://libraries.mit.edu/wp-content/themes/libraries/js/modernizr.js?ver=2.8.1'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <a id="skip" class="skip sr sr-focusable" href="#content-main">Skip to main content</a>
+        <div class="wrap-page">
+            <div class="wrap-outer-header layout-band">
+              <div class="wrap-header">
+                <header class="header-site header-slim" role="banner">
+                  <div class="wrap-header-core">
+                    <h1 class="name-site group nav-logo">
+                      <a href="https://libraries.mit.edu/" class="logo-mit-lib">
+                        <img src="https://cdn.libraries.mit.edu/files/branding/local/mitlib-wordmark.svg" alt="MIT Libraries logo" height="35"/>
+                      </a>
+                      <span class="platform-name">Ebooks</span>
+                    </h1>
+                  </div>
+                  <div class="wrap-header-supp">
+                    <a class="link-logo-mit" href="https://www.mit.edu"><img src="https://cdn.libraries.mit.edu/files/branding/local/mit_logo_std_rgb_white.svg" alt="MIT" height="35"/></a>
+                  </div>
+                </header>
+              </div>
+            </div>
+
+            <div class="wrap-outer-content layout-band">
+                <div class="wrap-content layout-3q1q">
+                    <main id="content-main" class="content-main col3q" role="main">
+                      {% block content %}{% endblock content %}
+                    </main>
+                    <aside class="content-sup col1q-r" role="complementary">
+                      <div class="bit">
+                        <h3 class="title">On this page</h3>
+                        <ul>
+                          <li><a href="#content-main">Title and Author</a></li>
+                          <li><a href="#ebook-files">Digital Files</a></li>
+                          <li><a href="#ebook-supplementary">Supplementary information</a></li>
+                        </ul>
+                      </div>
+                      {% block related %}
+                        <div class="bit">
+                          <h3 class="title">Related</h3>
+                          <ul>
+                            <li><a href="https://mit.primo.exlibrisgroup.com/discovery/fulldisplay?vid=01MIT_INST:MIT&docid=alma{{ file_id }}">View this item in the catalog</a></li>
+                          </ul>
+                        </div>
+                      {% endblock %}
+                    </aside>
+                </div>
+            </div>
+
+            <footer>
+                <div class="wrap-outer-footer layout-band">
+                  <div class="wrap-footer footer-slim">
+                    <div class="footer-main" aria-label="MIT Libraries footer">
+                      <div class="identity">
+                        <div class="wrap-logo-lib">
+                          <a href="https://libraries.mit.edu" class="logo-mit-lib" alt="MIT Libraries Logo">
+                            <img src="https://cdn.libraries.mit.edu/files/branding/local/mitlib-wordmark.svg" alt="MIT Libraries logo", width="150">
+                          </a>
+                        </div>
+                          <div class="wrap-middle">
+                            <div class="wrap-policies">
+                              <nav aria-label="MIT Libraries policy menu">
+                                <span class="item"><a href="https://libraries.mit.edu/privacy" class="link-sub">Privacy</a></span>
+                                <span class="item"><a href="https://libraries.mit.edu/permissions" class="link-sub">Permissions</a></span>
+                                <span class="item"><a href="https://libraries.mit.edu/accessibility" class="link-sub">Accessibility</a></span>
+                                <span class="item"><a href="https://libraries.mit.edu/contact" class="link-sub">Contact us</a></span>
+                              </nav>
+                            </div>
+                          </div>
+                      </div><!-- end .identity -->
+                    </div>
+                  </div>
+                </div>
+                <div class="wrap-outer-footer-institute layout-band">
+                  <div class="wrap-footer-institute">
+                    <div class="footer-info-institute">
+                      <a class="link-logo-mit" href="https://www.mit.edu">
+                        <img src="https://cdn.libraries.mit.edu/files/branding/local/mit_lockup_std-three-line_rgb_white.svg" alt="MIT" width="150"/>
+                      </a>
+                      <div class="license">Content created by the MIT Libraries, <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC</a> unless otherwise noted. <a href="https://libraries.mit.edu/research-support/notices/copyright-notify/">Notify us about copyright concerns</a>.
+                      </div><!-- end .footer-info-institute -->
+                    </div>
+                  </div>
+                </div>
+            </footer>
+              
+        </div>
+      {% block script %}{% endblock script %}
+    </body>
+</html>
+
+
+  
